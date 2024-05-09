@@ -4,7 +4,7 @@ namespace ConfigurationReader
 {
     public partial class Form1 : Form
     {
-        private string[] _loadedConfigurations;
+        private List<ConfigData> _loadedConfigurations;
 
         public Form1()
         {
@@ -26,14 +26,22 @@ namespace ConfigurationReader
         private void OnLoadConfigurations_Click(object sender, EventArgs e)
         {
             var configSearch = new SearchForJsonFiles();
-            _loadedConfigurations = configSearch.Search(tbBaseFolder.Text);
+            var configLocations = configSearch.Search(tbBaseFolder.Text);
+
+            _loadedConfigurations = new List<ConfigData>();
+            var configLoader = new LoadConfiguration();
+            foreach (var location in configLocations)
+            {
+                var configDict = configLoader.LoadConfigurationFromFile(location);
+                if (configDict == null)
+                    continue;
+                _loadedConfigurations.Add(new ConfigData
+                {
+                    FullName = location,
+                    Configuration = configDict
+                });
+            }
         }
         #endregion
-
-        private void LoadConfigurationFromFile()
-        {
-            var configLoader = new LoadConfiguration();
-            var config = configLoader.LoadConfigurationFromFile("D:\\Programiranje\\ConfigurationReader\\service.Secrets.json");
-        }
     }
 }
