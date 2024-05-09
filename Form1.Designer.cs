@@ -1,4 +1,6 @@
-﻿namespace ConfigurationReader
+﻿using ConfigurationReader.Assets;
+
+namespace ConfigurationReader
 {
     partial class Form1
     {
@@ -30,19 +32,25 @@
         {
             tbBaseFolder = new TextBox();
             label1 = new Label();
-            btnFindFolder = new Button();
+            btnFindFolder = new DarkButton();
             label2 = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
-            btnLoadConfigs = new Button();
+            btnLoadConfigs = new DarkButton();
+            pnlConfigurations = new FlowLayoutPanel();
+            label3 = new Label();
             SuspendLayout();
             // 
             // tbBaseFolder
             // 
-            tbBaseFolder.BackColor = SystemColors.ScrollBar;
+            tbBaseFolder.BackColor = SystemColors.WindowFrame;
+            tbBaseFolder.BorderStyle = BorderStyle.FixedSingle;
+            tbBaseFolder.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tbBaseFolder.ForeColor = SystemColors.HighlightText;
             tbBaseFolder.Location = new Point(116, 11);
             tbBaseFolder.Name = "tbBaseFolder";
             tbBaseFolder.Size = new Size(439, 27);
             tbBaseFolder.TabIndex = 0;
+            tbBaseFolder.Text = "A:\\\\AAAAAAAAAA";
             // 
             // label1
             // 
@@ -59,6 +67,8 @@
             // 
             btnFindFolder.BackColor = Color.Black;
             btnFindFolder.BackgroundImageLayout = ImageLayout.None;
+            btnFindFolder.BorderColor = Color.FromArgb(70, 70, 70);
+            btnFindFolder.FlatStyle = FlatStyle.Flat;
             btnFindFolder.ForeColor = SystemColors.HighlightText;
             btnFindFolder.Location = new Point(565, 8);
             btnFindFolder.Name = "btnFindFolder";
@@ -75,14 +85,16 @@
             label2.ForeColor = SystemColors.ButtonHighlight;
             label2.Location = new Point(116, 41);
             label2.Name = "label2";
-            label2.Size = new Size(382, 13);
+            label2.Size = new Size(429, 13);
             label2.TabIndex = 3;
-            label2.Text = "After selecting 'base location' all programs from all child directories will be loaded";
+            label2.Text = "After selecting 'Load Configs' all .json configurations from all child directories will be loaded";
             // 
             // btnLoadConfigs
             // 
             btnLoadConfigs.BackColor = Color.Black;
             btnLoadConfigs.BackgroundImageLayout = ImageLayout.None;
+            btnLoadConfigs.BorderColor = Color.FromArgb(70, 70, 70);
+            btnLoadConfigs.FlatStyle = FlatStyle.Flat;
             btnLoadConfigs.ForeColor = SystemColors.HighlightText;
             btnLoadConfigs.Location = new Point(685, 8);
             btnLoadConfigs.Name = "btnLoadConfigs";
@@ -92,12 +104,39 @@
             btnLoadConfigs.UseVisualStyleBackColor = false;
             btnLoadConfigs.Click += OnLoadConfigurations_Click;
             // 
+            // pnlConfigurations
+            // 
+            pnlConfigurations.AllowDrop = true;
+            pnlConfigurations.Anchor = AnchorStyles.Top;
+            pnlConfigurations.AutoScroll = true;
+            pnlConfigurations.BackColor = SystemColors.WindowFrame;
+            pnlConfigurations.FlowDirection = FlowDirection.TopDown;
+            pnlConfigurations.ForeColor = Color.Transparent;
+            pnlConfigurations.Location = new Point(12, 95);
+            pnlConfigurations.Name = "pnlConfigurations";
+            pnlConfigurations.Size = new Size(257, 343);
+            pnlConfigurations.TabIndex = 5;
+            pnlConfigurations.WrapContents = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ButtonHighlight;
+            label3.Location = new Point(12, 72);
+            label3.Name = "label3";
+            label3.Size = new Size(113, 20);
+            label3.TabIndex = 6;
+            label3.Text = "Configurations";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
             ClientSize = new Size(811, 450);
+            Controls.Add(label3);
+            Controls.Add(pnlConfigurations);
             Controls.Add(btnLoadConfigs);
             Controls.Add(label2);
             Controls.Add(btnFindFolder);
@@ -109,14 +148,15 @@
             ResumeLayout(false);
             PerformLayout();
         }
-
         #endregion
 
         private TextBox tbBaseFolder;
         private Label label1;
-        private Button btnFindFolder;
+        private DarkButton btnFindFolder;
         private Label label2;
         private FolderBrowserDialog folderBrowserDialog1;
-        private Button btnLoadConfigs;
+        private DarkButton btnLoadConfigs;
+        private FlowLayoutPanel pnlConfigurations;
+        private Label label3;
     }
 }
