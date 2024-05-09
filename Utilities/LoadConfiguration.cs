@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ConfigurationReader
+namespace ConfigurationReader.Utilities
 {
     internal class LoadConfiguration
     {

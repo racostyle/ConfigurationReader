@@ -33,6 +33,7 @@
             btnFindFolder = new Button();
             label2 = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
+            btnLoadConfigs = new Button();
             SuspendLayout();
             // 
             // tbBaseFolder
@@ -40,31 +41,30 @@
             tbBaseFolder.BackColor = SystemColors.ScrollBar;
             tbBaseFolder.Location = new Point(116, 11);
             tbBaseFolder.Name = "tbBaseFolder";
-            tbBaseFolder.Size = new Size(517, 27);
+            tbBaseFolder.Size = new Size(439, 27);
             tbBaseFolder.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(12, 14);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Location = new Point(8, 14);
             label1.Name = "label1";
             label1.Size = new Size(102, 20);
             label1.TabIndex = 1;
             label1.Text = "Base location";
-            label1.Click += label1_Click;
             // 
             // btnFindFolder
             // 
             btnFindFolder.BackColor = Color.Black;
             btnFindFolder.BackgroundImageLayout = ImageLayout.None;
-            btnFindFolder.ForeColor = SystemColors.Control;
-            btnFindFolder.Location = new Point(639, 8);
+            btnFindFolder.ForeColor = SystemColors.HighlightText;
+            btnFindFolder.Location = new Point(565, 8);
             btnFindFolder.Name = "btnFindFolder";
-            btnFindFolder.Size = new Size(149, 32);
+            btnFindFolder.Size = new Size(114, 32);
             btnFindFolder.TabIndex = 2;
-            btnFindFolder.Text = "FindFolder";
+            btnFindFolder.Text = "Find Folder";
             btnFindFolder.UseVisualStyleBackColor = false;
             btnFindFolder.Click += OnFindFolder_Click;
             // 
@@ -72,19 +72,33 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 6.25F);
-            label2.ForeColor = SystemColors.Control;
+            label2.ForeColor = SystemColors.ButtonHighlight;
             label2.Location = new Point(116, 41);
             label2.Name = "label2";
             label2.Size = new Size(382, 13);
             label2.TabIndex = 3;
             label2.Text = "After selecting 'base location' all programs from all child directories will be loaded";
             // 
+            // btnLoadConfigs
+            // 
+            btnLoadConfigs.BackColor = Color.Black;
+            btnLoadConfigs.BackgroundImageLayout = ImageLayout.None;
+            btnLoadConfigs.ForeColor = SystemColors.HighlightText;
+            btnLoadConfigs.Location = new Point(685, 8);
+            btnLoadConfigs.Name = "btnLoadConfigs";
+            btnLoadConfigs.Size = new Size(114, 32);
+            btnLoadConfigs.TabIndex = 4;
+            btnLoadConfigs.Text = "Load Configs";
+            btnLoadConfigs.UseVisualStyleBackColor = false;
+            btnLoadConfigs.Click += OnLoadConfigurations_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(811, 450);
+            Controls.Add(btnLoadConfigs);
             Controls.Add(label2);
             Controls.Add(btnFindFolder);
             Controls.Add(label1);
@@ -103,5 +117,6 @@
         private Button btnFindFolder;
         private Label label2;
         private FolderBrowserDialog folderBrowserDialog1;
+        private Button btnLoadConfigs;
     }
 }
