@@ -12,8 +12,12 @@
 
         public DarkButton()
         {
+            this.Font = new Font("Arial", 8, FontStyle.Regular);
             this.FlatStyle = FlatStyle.Flat;
-            this.FlatAppearance.BorderSize = 0; 
+            this.FlatAppearance.BorderSize = 0;
+            this.TextAlign = ContentAlignment.MiddleCenter;
+            this.ForeColor = Color.White;
+            this.BackColor = Color.Black;
         }
 
         protected override void OnPaint(PaintEventArgs pevent)

@@ -21,10 +21,7 @@ namespace ConfigurationReader.Assets
             some.Width = _buttonWidth;
             some.Height = _buttonHeight;
             some.Text = FilterButtonName(sConfgData.FullName, 3);
-            some.BackColor = Color.Black;
             some.BackgroundImageLayout = ImageLayout.None;
-            some.ForeColor = SystemColors.HighlightText;
-            some.Font = new Font(some.Font.FontFamily, 8, FontStyle.Regular);
             some.TextAlign = ContentAlignment.MiddleCenter;
 
             if (panel != null)
@@ -49,10 +46,18 @@ namespace ConfigurationReader.Assets
             if (selectedParts.Length > 0)
             {
                 int last = selectedParts.Length - 1;
-                selectedParts[last] = selectedParts[last].Replace(".Json", string.Empty, StringComparison.CurrentCultureIgnoreCase).Trim();
+                selectedParts[last] = selectedParts[last]
+                    .Replace(".Json", string.Empty, StringComparison.CurrentCultureIgnoreCase)
+                    .Replace(".Secrets", ".S", StringComparison.CurrentCultureIgnoreCase)
+                    .Trim();
             }
 
             return string.Join("\\", selectedParts);
+        }
+
+        internal void overrideButtonFont(DarkButton button, int size)
+        {
+            button.Font = new Font("Arial", size, FontStyle.Regular);
         }
     }
 }

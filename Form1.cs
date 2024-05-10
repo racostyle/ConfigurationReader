@@ -1,6 +1,5 @@
 using ConfigurationReader.Assets;
 using ConfigurationReader.Utilities;
-using System.Windows.Forms;
 
 namespace ConfigurationReader
 {
