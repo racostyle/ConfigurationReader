@@ -42,6 +42,8 @@ namespace ConfigurationReader
             tbKeyValue = new TextBox();
             label4 = new Label();
             label5 = new Label();
+            btnSaveCurrent = new DarkButton();
+            btnSaveAll = new DarkButton();
             SuspendLayout();
             // 
             // tbBaseFolder
@@ -53,9 +55,10 @@ namespace ConfigurationReader
             tbBaseFolder.Location = new Point(102, 8);
             tbBaseFolder.Margin = new Padding(3, 2, 3, 2);
             tbBaseFolder.Name = "tbBaseFolder";
-            tbBaseFolder.Size = new Size(384, 23);
+            tbBaseFolder.Size = new Size(417, 23);
             tbBaseFolder.TabIndex = 0;
             tbBaseFolder.Text = "A:\\\\AAAAAAAAAA";
+            tbBaseFolder.TextChanged += OnTbBaseFolder_TextChanged;
             // 
             // label1
             // 
@@ -73,7 +76,7 @@ namespace ConfigurationReader
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 6.25F);
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(102, 31);
+            label2.Location = new Point(102, 32);
             label2.Name = "label2";
             label2.Size = new Size(373, 12);
             label2.TabIndex = 3;
@@ -87,10 +90,10 @@ namespace ConfigurationReader
             pnlConfigurations.BackColor = SystemColors.WindowFrame;
             pnlConfigurations.FlowDirection = FlowDirection.TopDown;
             pnlConfigurations.ForeColor = Color.Transparent;
-            pnlConfigurations.Location = new Point(10, 71);
+            pnlConfigurations.Location = new Point(10, 86);
             pnlConfigurations.Margin = new Padding(3, 2, 3, 2);
             pnlConfigurations.Name = "pnlConfigurations";
-            pnlConfigurations.Size = new Size(215, 257);
+            pnlConfigurations.Size = new Size(225, 257);
             pnlConfigurations.TabIndex = 5;
             pnlConfigurations.WrapContents = false;
             // 
@@ -99,7 +102,7 @@ namespace ConfigurationReader
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(10, 54);
+            label3.Location = new Point(10, 69);
             label3.Name = "label3";
             label3.Size = new Size(88, 15);
             label3.TabIndex = 6;
@@ -113,10 +116,10 @@ namespace ConfigurationReader
             pnlConfigKeys.BackColor = SystemColors.WindowFrame;
             pnlConfigKeys.FlowDirection = FlowDirection.TopDown;
             pnlConfigKeys.ForeColor = Color.Transparent;
-            pnlConfigKeys.Location = new Point(231, 71);
+            pnlConfigKeys.Location = new Point(241, 87);
             pnlConfigKeys.Margin = new Padding(3, 2, 3, 2);
             pnlConfigKeys.Name = "pnlConfigKeys";
-            pnlConfigKeys.Size = new Size(215, 257);
+            pnlConfigKeys.Size = new Size(226, 257);
             pnlConfigKeys.TabIndex = 6;
             pnlConfigKeys.WrapContents = false;
             // 
@@ -128,7 +131,7 @@ namespace ConfigurationReader
             btnFindFolder.FlatStyle = FlatStyle.Flat;
             btnFindFolder.Font = new Font("Arial", 8F);
             btnFindFolder.ForeColor = Color.Transparent;
-            btnFindFolder.Location = new Point(492, 8);
+            btnFindFolder.Location = new Point(525, 8);
             btnFindFolder.Name = "btnFindFolder";
             btnFindFolder.Size = new Size(82, 23);
             btnFindFolder.TabIndex = 8;
@@ -144,7 +147,7 @@ namespace ConfigurationReader
             btnLoadConfigs.FlatStyle = FlatStyle.Flat;
             btnLoadConfigs.Font = new Font("Arial", 8F);
             btnLoadConfigs.ForeColor = Color.Transparent;
-            btnLoadConfigs.Location = new Point(580, 8);
+            btnLoadConfigs.Location = new Point(613, 8);
             btnLoadConfigs.Name = "btnLoadConfigs";
             btnLoadConfigs.Size = new Size(82, 23);
             btnLoadConfigs.TabIndex = 9;
@@ -158,12 +161,12 @@ namespace ConfigurationReader
             tbKeyValue.BorderStyle = BorderStyle.FixedSingle;
             tbKeyValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tbKeyValue.ForeColor = SystemColors.HighlightText;
-            tbKeyValue.Location = new Point(452, 72);
+            tbKeyValue.Location = new Point(473, 87);
             tbKeyValue.Margin = new Padding(3, 2, 3, 2);
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
-            tbKeyValue.Size = new Size(198, 256);
+            tbKeyValue.Size = new Size(222, 256);
             tbKeyValue.TabIndex = 10;
             // 
             // label4
@@ -171,7 +174,7 @@ namespace ConfigurationReader
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(231, 54);
+            label4.Location = new Point(241, 70);
             label4.Name = "label4";
             label4.Size = new Size(33, 15);
             label4.TabIndex = 11;
@@ -182,18 +185,52 @@ namespace ConfigurationReader
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(452, 55);
+            label5.Location = new Point(473, 70);
             label5.Name = "label5";
             label5.Size = new Size(42, 15);
             label5.TabIndex = 12;
             label5.Text = "Values";
+            // 
+            // btnSaveCurrent
+            // 
+            btnSaveCurrent.BackColor = SystemColors.MenuText;
+            btnSaveCurrent.BorderColor = Color.FromArgb(70, 70, 70);
+            btnSaveCurrent.FlatAppearance.BorderSize = 0;
+            btnSaveCurrent.FlatStyle = FlatStyle.Flat;
+            btnSaveCurrent.Font = new Font("Arial", 8F);
+            btnSaveCurrent.ForeColor = Color.Transparent;
+            btnSaveCurrent.Location = new Point(525, 41);
+            btnSaveCurrent.Name = "btnSaveCurrent";
+            btnSaveCurrent.Size = new Size(82, 23);
+            btnSaveCurrent.TabIndex = 13;
+            btnSaveCurrent.Text = "SAVE";
+            btnSaveCurrent.UseVisualStyleBackColor = false;
+            btnSaveCurrent.Click += OnBtnSaveCurrent_Click;
+            // 
+            // btnSaveAll
+            // 
+            btnSaveAll.BackColor = SystemColors.MenuText;
+            btnSaveAll.BorderColor = Color.FromArgb(70, 70, 70);
+            btnSaveAll.FlatAppearance.BorderSize = 0;
+            btnSaveAll.FlatStyle = FlatStyle.Flat;
+            btnSaveAll.Font = new Font("Arial", 8F);
+            btnSaveAll.ForeColor = Color.Transparent;
+            btnSaveAll.Location = new Point(613, 41);
+            btnSaveAll.Name = "btnSaveAll";
+            btnSaveAll.Size = new Size(82, 23);
+            btnSaveAll.TabIndex = 14;
+            btnSaveAll.Text = "SAVE ALL";
+            btnSaveAll.UseVisualStyleBackColor = false;
+            btnSaveAll.Click += OnBtnSaveAll_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(710, 338);
+            ClientSize = new Size(710, 393);
+            Controls.Add(btnSaveAll);
+            Controls.Add(btnSaveCurrent);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(tbKeyValue);
@@ -219,6 +256,8 @@ namespace ConfigurationReader
         private TextBox tbKeyValue;
         private DarkButton btnFindFolder;
         private DarkButton btnLoadConfigs;
+        private DarkButton btnSaveCurrent;
+        private DarkButton btnSaveAll;
         private Label label1;
         private Label label2;
         private Label label3;

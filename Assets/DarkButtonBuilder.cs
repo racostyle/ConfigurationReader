@@ -14,9 +14,9 @@ namespace ConfigurationReader.Assets
             _buttonHeight = buttonHeight;
         }
 
-        internal DarkButton Create(SConfigData sConfgData, int index, Panel panel, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
+        internal DarkButton Create(ConfigData sConfgData, int index, Panel panel, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
         {
-            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, panel);
+            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, panel, 1.25f);
 
             some.Click += new EventHandler((sndr, evt) =>
             {
@@ -25,10 +25,14 @@ namespace ConfigurationReader.Assets
                 int i = 0;
                 foreach (string key in sConfgData.Configuration.Keys)
                 {
-                    var btn = CreateButton(key, i, pnlConfigKeys, 1.3f);
+                    var btn = CreateButton(key, i, pnlConfigKeys, 1.25f);
                     btn.Click += new EventHandler((sndr, evt) =>
                     {
                         tbKeyValue.Text = sConfgData.Configuration[key];
+                        tbKeyValue.TextChanged += new EventHandler((s, e) => 
+                        {
+                            sConfgData.Configuration[key] = tbKeyValue.Text;
+                        });
                     });
                     pnlConfigKeys.Controls.Add(btn);
                     i++;

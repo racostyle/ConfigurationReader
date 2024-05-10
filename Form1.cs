@@ -5,17 +5,22 @@ namespace ConfigurationReader
 {
     public partial class Form1 : Form
     {
-        private List<SConfigData> _loadedConfigurations;
+        private List<ConfigData> _loadedConfigurations;
         private int _currentConfigIndex = 0;
+        private readonly ConfigurationHelper _configurationHelper;
+        private readonly Dictionary<string, string> _settings;
 
         public Form1()
         {
             InitializeComponent();
             AdjustFormsComponents();
-            _loadedConfigurations = new List<SConfigData>();
+            _loadedConfigurations = new List<ConfigData>();
+            _configurationHelper = new ConfigurationHelper();
+            _settings = _configurationHelper.LoadAppsettings();
+            tbBaseFolder.Text = _settings[Stafi.APPSETTINGS_BASE_FOLDER];
         }
 
-        #region Forms Asjustments
+        #region FORMS ADJUSTMENTS
         private void AdjustFormsComponents()
         {
             this.BackColor = CustomColors.BACKGROUND_COLOR;
@@ -45,7 +50,7 @@ namespace ConfigurationReader
         }
         #endregion
 
-        #region Configuration loading and button creation
+        #region CONFIGURATION LOADING, BUTTON CREATION
         private void OnLoadConfigurations_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbBaseFolder.Text))
@@ -66,18 +71,12 @@ namespace ConfigurationReader
         private void CreateConfigObjects(string[] configLocations)
         {
             _loadedConfigurations.Clear();
-            var configLoader = new LoadConfiguration();
             for (int i = 0; i < configLocations.Length; i++)
             {
-                var configDict = configLoader.LoadConfigurationFromFile(configLocations[i]);
+                var configDict = _configurationHelper.LoadConfigurationFromFile(configLocations[i]);
                 if (configDict == null)
                     continue;
-                _loadedConfigurations.Add(new SConfigData
-                {
-                    Index = i,
-                    FullName = configLocations[i],
-                    Configuration = configDict
-                });
+                _loadedConfigurations.Add(new ConfigData(i, configLocations[i], configDict));
             }
         }
         #endregion
@@ -101,6 +100,41 @@ namespace ConfigurationReader
         private void SetCurrentConfigIndex(int i)
         {
             _currentConfigIndex = i;
+        }
+        #endregion
+
+        #region SAVING CONFIGURATIONS
+
+        private void OnBtnSaveCurrent_Click(object sender, EventArgs e)
+        {
+            var path = _loadedConfigurations[_currentConfigIndex].FullName;
+            var config = _loadedConfigurations[_currentConfigIndex].Configuration;
+            _configurationHelper.SaveConfigurationToFile(config, path);
+        }
+
+        private void OnBtnSaveAll_Click(object sender, EventArgs e)
+        {
+            foreach (var config in _loadedConfigurations)
+            {
+                var path = config.FullName;
+                _configurationHelper.SaveConfigurationToFile(config.Configuration, path);
+            }
+        }
+        #endregion
+
+        #region OTHER HANDLERS
+        private void OnTbBaseFolder_TextChanged(object sender, EventArgs e)
+        {
+            if (Directory.Exists(tbBaseFolder.Text))
+            {
+                _settings[Stafi.APPSETTINGS_BASE_FOLDER] = tbBaseFolder.Text;
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            _configurationHelper.SaveConfigurationToFile(_settings, "appsettings.json");
         }
         #endregion
     }
