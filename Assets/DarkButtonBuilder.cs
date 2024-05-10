@@ -14,24 +14,45 @@ namespace ConfigurationReader.Assets
             _buttonHeight = buttonHeight;
         }
 
-        internal DarkButton Create(SConfigData sConfgData, int index, Panel panel)
+        internal DarkButton Create(SConfigData sConfgData, int index, Panel panel, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
         {
+            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, panel);
+
+            some.Click += new EventHandler((sndr, evt) =>
+            {
+                setCurrentIndex?.Invoke(sConfgData.Index);
+                pnlConfigKeys.Controls.Clear();
+                int i = 0;
+                foreach (string key in sConfgData.Configuration.Keys)
+                {
+                    var btn = CreateButton(key, i, pnlConfigKeys, 1.3f);
+                    btn.Click += new EventHandler((sndr, evt) =>
+                    {
+                        tbKeyValue.Text = sConfgData.Configuration[key];
+                    });
+                    pnlConfigKeys.Controls.Add(btn);
+                    i++;
+                }
+            });
+
+            return some;
+        }
+
+        private DarkButton CreateButton(string name, int index, Panel panel, float heightMulti = 1)
+        {
+            float height = _buttonHeight;
+            float finalHeight = _buttonHeight * heightMulti;
+
             DarkButton some = new DarkButton();
             some.Location = new Point(0, index * (_buttonHeight + 5));
             some.Width = _buttonWidth;
-            some.Height = _buttonHeight;
-            some.Text = FilterButtonName(sConfgData.FullName, 3);
+            some.Height = (int)finalHeight;
+            some.Text = name;
             some.BackgroundImageLayout = ImageLayout.None;
             some.TextAlign = ContentAlignment.MiddleCenter;
 
             if (panel != null)
                 some.Left = (panel.Width - some.Width) / 2;
-
-            some.Click += new EventHandler((sndr, evt) =>
-            {
-
-            });
-
             return some;
         }
 

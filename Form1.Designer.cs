@@ -40,6 +40,8 @@ namespace ConfigurationReader
             btnFindFolder = new DarkButton();
             btnLoadConfigs = new DarkButton();
             tbKeyValue = new TextBox();
+            label4 = new Label();
+            label5 = new Label();
             SuspendLayout();
             // 
             // tbBaseFolder
@@ -114,7 +116,7 @@ namespace ConfigurationReader
             pnlConfigKeys.Location = new Point(231, 71);
             pnlConfigKeys.Margin = new Padding(3, 2, 3, 2);
             pnlConfigKeys.Name = "pnlConfigKeys";
-            pnlConfigKeys.Size = new Size(204, 257);
+            pnlConfigKeys.Size = new Size(215, 257);
             pnlConfigKeys.TabIndex = 6;
             pnlConfigKeys.WrapContents = false;
             // 
@@ -156,7 +158,7 @@ namespace ConfigurationReader
             tbKeyValue.BorderStyle = BorderStyle.FixedSingle;
             tbKeyValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tbKeyValue.ForeColor = SystemColors.HighlightText;
-            tbKeyValue.Location = new Point(441, 71);
+            tbKeyValue.Location = new Point(452, 72);
             tbKeyValue.Margin = new Padding(3, 2, 3, 2);
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
@@ -164,12 +166,36 @@ namespace ConfigurationReader
             tbKeyValue.Size = new Size(198, 256);
             tbKeyValue.TabIndex = 10;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.ButtonHighlight;
+            label4.Location = new Point(231, 54);
+            label4.Name = "label4";
+            label4.Size = new Size(33, 15);
+            label4.TabIndex = 11;
+            label4.Text = "Keys";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.ButtonHighlight;
+            label5.Location = new Point(452, 55);
+            label5.Name = "label5";
+            label5.Size = new Size(42, 15);
+            label5.TabIndex = 12;
+            label5.Text = "Values";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(710, 338);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(tbKeyValue);
             Controls.Add(btnFindFolder);
             Controls.Add(btnLoadConfigs);
@@ -198,6 +224,7 @@ namespace ConfigurationReader
         private Label label3;
         private FlowLayoutPanel pnlConfigurations;
         private FlowLayoutPanel pnlConfigKeys;
-        
+        private Label label4;
+        private Label label5;
     }
 }

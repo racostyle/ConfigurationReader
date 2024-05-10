@@ -6,6 +6,7 @@ namespace ConfigurationReader
     public partial class Form1 : Form
     {
         private List<SConfigData> _loadedConfigurations;
+        private int _currentConfigIndex = 0;
 
         public Form1()
         {
@@ -66,14 +67,15 @@ namespace ConfigurationReader
         {
             _loadedConfigurations.Clear();
             var configLoader = new LoadConfiguration();
-            foreach (var location in configLocations)
+            for (int i = 0; i < configLocations.Length; i++)
             {
-                var configDict = configLoader.LoadConfigurationFromFile(location);
+                var configDict = configLoader.LoadConfigurationFromFile(configLocations[i]);
                 if (configDict == null)
                     continue;
                 _loadedConfigurations.Add(new SConfigData
                 {
-                    FullName = location,
+                    Index = i,
+                    FullName = configLocations[i],
                     Configuration = configDict
                 });
             }
@@ -82,20 +84,24 @@ namespace ConfigurationReader
 
         #region ADDING BUTTONS
 
-        private void CreateButtonsForEachConfiguration(FlowLayoutPanel panel)
+        private void CreateButtonsForEachConfiguration(FlowLayoutPanel pnlConfigurations)
         {
-            var buttonBuilder = new DarkButtonBuilder(panel.Width - 10, 35);
+            var buttonBuilder = new DarkButtonBuilder(pnlConfigurations.Width - 10, 35);
 
-            panel.Controls.Clear();
+            pnlConfigurations.Controls.Clear();
             List<DarkButton> buttons = new List<DarkButton>();
             for (int i = 0; i < _loadedConfigurations.Count; i++)
             {
-                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, panel);
+                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, pnlConfigurations, pnlConfigKeys, tbKeyValue, SetCurrentConfigIndex);
                 buttons.Add(btn);
-                panel.Controls.Add(btn);
+                pnlConfigurations.Controls.Add(btn);
             }
         }
 
+        private void SetCurrentConfigIndex(int i)
+        {
+            _currentConfigIndex = i;
+        }
         #endregion
     }
 }
