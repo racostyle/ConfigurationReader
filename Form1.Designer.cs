@@ -36,10 +36,10 @@ namespace ConfigurationReader
             folderBrowserDialog1 = new FolderBrowserDialog();
             pnlConfigurations = new FlowLayoutPanel();
             label3 = new Label();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            flowLayoutPanel2 = new FlowLayoutPanel();
+            pnlConfigKeys = new FlowLayoutPanel();
             btnFindFolder = new DarkButton();
             btnLoadConfigs = new DarkButton();
+            tbKeyValue = new TextBox();
             SuspendLayout();
             // 
             // tbBaseFolder
@@ -103,35 +103,20 @@ namespace ConfigurationReader
             label3.TabIndex = 6;
             label3.Text = "Configurations";
             // 
-            // flowLayoutPanel1
+            // pnlConfigKeys
             // 
-            flowLayoutPanel1.AllowDrop = true;
-            flowLayoutPanel1.Anchor = AnchorStyles.Top;
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.BackColor = SystemColors.WindowFrame;
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.ForeColor = Color.Transparent;
-            flowLayoutPanel1.Location = new Point(231, 71);
-            flowLayoutPanel1.Margin = new Padding(3, 2, 3, 2);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(215, 257);
-            flowLayoutPanel1.TabIndex = 6;
-            flowLayoutPanel1.WrapContents = false;
-            // 
-            // flowLayoutPanel2
-            // 
-            flowLayoutPanel2.AllowDrop = true;
-            flowLayoutPanel2.Anchor = AnchorStyles.Top;
-            flowLayoutPanel2.AutoScroll = true;
-            flowLayoutPanel2.BackColor = SystemColors.WindowFrame;
-            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel2.ForeColor = Color.Transparent;
-            flowLayoutPanel2.Location = new Point(452, 71);
-            flowLayoutPanel2.Margin = new Padding(3, 2, 3, 2);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(215, 257);
-            flowLayoutPanel2.TabIndex = 7;
-            flowLayoutPanel2.WrapContents = false;
+            pnlConfigKeys.AllowDrop = true;
+            pnlConfigKeys.Anchor = AnchorStyles.Top;
+            pnlConfigKeys.AutoScroll = true;
+            pnlConfigKeys.BackColor = SystemColors.WindowFrame;
+            pnlConfigKeys.FlowDirection = FlowDirection.TopDown;
+            pnlConfigKeys.ForeColor = Color.Transparent;
+            pnlConfigKeys.Location = new Point(231, 71);
+            pnlConfigKeys.Margin = new Padding(3, 2, 3, 2);
+            pnlConfigKeys.Name = "pnlConfigKeys";
+            pnlConfigKeys.Size = new Size(204, 257);
+            pnlConfigKeys.TabIndex = 6;
+            pnlConfigKeys.WrapContents = false;
             // 
             // btnFindFolder
             // 
@@ -139,14 +124,15 @@ namespace ConfigurationReader
             btnFindFolder.BorderColor = Color.FromArgb(70, 70, 70);
             btnFindFolder.FlatAppearance.BorderSize = 0;
             btnFindFolder.FlatStyle = FlatStyle.Flat;
+            btnFindFolder.Font = new Font("Arial", 8F);
             btnFindFolder.ForeColor = Color.Transparent;
             btnFindFolder.Location = new Point(492, 8);
             btnFindFolder.Name = "btnFindFolder";
-            btnFindFolder.Size = new Size(75, 23);
+            btnFindFolder.Size = new Size(82, 23);
             btnFindFolder.TabIndex = 8;
             btnFindFolder.Text = "Find Folder";
             btnFindFolder.UseVisualStyleBackColor = false;
-            btnFindFolder.Click += OnFindFolder_Click;
+            btnFindFolder.Click += OnLoadConfigurations_Click;
             // 
             // btnLoadConfigs
             // 
@@ -154,14 +140,28 @@ namespace ConfigurationReader
             btnLoadConfigs.BorderColor = Color.FromArgb(70, 70, 70);
             btnLoadConfigs.FlatAppearance.BorderSize = 0;
             btnLoadConfigs.FlatStyle = FlatStyle.Flat;
+            btnLoadConfigs.Font = new Font("Arial", 8F);
             btnLoadConfigs.ForeColor = Color.Transparent;
-            btnLoadConfigs.Location = new Point(573, 8);
+            btnLoadConfigs.Location = new Point(580, 8);
             btnLoadConfigs.Name = "btnLoadConfigs";
-            btnLoadConfigs.Size = new Size(75, 23);
+            btnLoadConfigs.Size = new Size(82, 23);
             btnLoadConfigs.TabIndex = 9;
             btnLoadConfigs.Text = "Load Configs";
             btnLoadConfigs.UseVisualStyleBackColor = false;
-            btnFindFolder.Click += OnLoadConfigurations_Click;
+            // 
+            // tbKeyValue
+            // 
+            tbKeyValue.BackColor = SystemColors.WindowFrame;
+            tbKeyValue.BorderStyle = BorderStyle.FixedSingle;
+            tbKeyValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tbKeyValue.ForeColor = SystemColors.HighlightText;
+            tbKeyValue.Location = new Point(441, 71);
+            tbKeyValue.Margin = new Padding(3, 2, 3, 2);
+            tbKeyValue.Multiline = true;
+            tbKeyValue.Name = "tbKeyValue";
+            tbKeyValue.ScrollBars = ScrollBars.Vertical;
+            tbKeyValue.Size = new Size(198, 256);
+            tbKeyValue.TabIndex = 10;
             // 
             // Form1
             // 
@@ -169,10 +169,10 @@ namespace ConfigurationReader
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(710, 338);
+            Controls.Add(tbKeyValue);
             Controls.Add(btnFindFolder);
             Controls.Add(btnLoadConfigs);
-            Controls.Add(flowLayoutPanel2);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(pnlConfigKeys);
             Controls.Add(label3);
             Controls.Add(pnlConfigurations);
             Controls.Add(label2);
@@ -187,15 +187,16 @@ namespace ConfigurationReader
         }
         #endregion
 
-        private TextBox tbBaseFolder;
-        private Label label1;
-        private DarkButton btnFindFolder;
-        private Label label2;
         private FolderBrowserDialog folderBrowserDialog1;
+        private TextBox tbBaseFolder;
+        private TextBox tbKeyValue;
+        private DarkButton btnFindFolder;
         private DarkButton btnLoadConfigs;
-        private FlowLayoutPanel pnlConfigurations;
+        private Label label1;
+        private Label label2;
         private Label label3;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private FlowLayoutPanel flowLayoutPanel2;
+        private FlowLayoutPanel pnlConfigurations;
+        private FlowLayoutPanel pnlConfigKeys;
+        
     }
 }

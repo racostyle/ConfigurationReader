@@ -86,6 +86,7 @@ namespace ConfigurationReader
         {
             var buttonBuilder = new DarkButtonBuilder(panel.Width - 10, 35);
 
+            panel.Controls.Clear();
             List<DarkButton> buttons = new List<DarkButton>();
             for (int i = 0; i < _loadedConfigurations.Count; i++)
             {
