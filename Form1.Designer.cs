@@ -44,6 +44,8 @@ namespace ConfigurationReader
             label5 = new Label();
             btnSaveCurrent = new DarkButton();
             btnSaveAll = new DarkButton();
+            btnImportSetting = new DarkButton();
+            btnExportSetting = new DarkButton();
             SuspendLayout();
             // 
             // tbBaseFolder
@@ -166,7 +168,7 @@ namespace ConfigurationReader
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
-            tbKeyValue.Size = new Size(222, 256);
+            tbKeyValue.Size = new Size(222, 229);
             tbKeyValue.TabIndex = 10;
             // 
             // label4
@@ -223,12 +225,44 @@ namespace ConfigurationReader
             btnSaveAll.UseVisualStyleBackColor = false;
             btnSaveAll.Click += OnBtnSaveAll_Click;
             // 
+            // btnImportSetting
+            // 
+            btnImportSetting.BackColor = SystemColors.MenuText;
+            btnImportSetting.BorderColor = Color.FromArgb(70, 70, 70);
+            btnImportSetting.FlatAppearance.BorderSize = 0;
+            btnImportSetting.FlatStyle = FlatStyle.Flat;
+            btnImportSetting.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            btnImportSetting.ForeColor = Color.Transparent;
+            btnImportSetting.Location = new Point(495, 321);
+            btnImportSetting.Name = "btnImportSetting";
+            btnImportSetting.Size = new Size(82, 23);
+            btnImportSetting.TabIndex = 15;
+            btnImportSetting.Text = "Import ↑";
+            btnImportSetting.UseVisualStyleBackColor = false;
+            // 
+            // btnExportSetting
+            // 
+            btnExportSetting.BackColor = SystemColors.MenuText;
+            btnExportSetting.BorderColor = Color.FromArgb(70, 70, 70);
+            btnExportSetting.FlatAppearance.BorderSize = 0;
+            btnExportSetting.FlatStyle = FlatStyle.Flat;
+            btnExportSetting.Font = new Font("Arial", 9F);
+            btnExportSetting.ForeColor = Color.Transparent;
+            btnExportSetting.Location = new Point(583, 321);
+            btnExportSetting.Name = "btnImportSetting";
+            btnExportSetting.Size = new Size(82, 23);
+            btnExportSetting.TabIndex = 16;
+            btnExportSetting.Text = "Export ↓";
+            btnExportSetting.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(710, 393);
+            ClientSize = new Size(710, 409);
+            Controls.Add(btnExportSetting);
+            Controls.Add(btnImportSetting);
             Controls.Add(btnSaveAll);
             Controls.Add(btnSaveCurrent);
             Controls.Add(label5);
@@ -258,6 +292,8 @@ namespace ConfigurationReader
         private DarkButton btnLoadConfigs;
         private DarkButton btnSaveCurrent;
         private DarkButton btnSaveAll;
+        private DarkButton btnImportSetting;
+        private DarkButton btnExportSetting;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -265,5 +301,6 @@ namespace ConfigurationReader
         private FlowLayoutPanel pnlConfigKeys;
         private Label label4;
         private Label label5;
+       
     }
 }
