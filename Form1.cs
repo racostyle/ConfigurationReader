@@ -1,14 +1,17 @@
 using ConfigurationReader.Assets;
 using ConfigurationReader.Utilities;
+using System.Drawing.Text;
 
 namespace ConfigurationReader
 {
     public partial class Form1 : Form
     {
+        private readonly ConfigurationHelper _configurationHelper;
+
         private List<ConfigData> _loadedConfigurations;
         private int _currentConfigIndex = 0;
-        private readonly ConfigurationHelper _configurationHelper;
-        private readonly Dictionary<string, string> _settings;
+
+        private readonly Dictionary<string, string> _settings; 
 
         public Form1()
         {
@@ -17,10 +20,11 @@ namespace ConfigurationReader
             _loadedConfigurations = new List<ConfigData>();
             _configurationHelper = new ConfigurationHelper();
             _settings = _configurationHelper.LoadAppsettings();
-            tbBaseFolder.Text = _settings[Stafi.APPSETTINGS_BASE_FOLDER];
+
+            FillFormElements();
         }
 
-        #region FORMS ADJUSTMENTS
+        #region FORMS
         private void AdjustFormsComponents()
         {
             this.BackColor = CustomColors.BACKGROUND_COLOR;
@@ -34,6 +38,20 @@ namespace ConfigurationReader
                 if (control.Name.StartsWith("tb"))
                     control.BackColor = CustomColors.TEXT_BOX_COLOR;
             }
+        }
+        private void FillFormElements()
+        {
+            tbBaseFolder.Text = _settings[Stafi.APPSETTINGS_BASE_FOLDER];
+            FillSavedValuesComboBox();
+        }
+
+        private void FillSavedValuesComboBox()
+        {
+            cbSavedValues.Items.Clear();
+            var items = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).Select(x => x.Value).ToArray();
+
+            foreach (var item in items)
+                cbSavedValues.Items.Add(item);
         }
         #endregion
 
@@ -125,12 +143,14 @@ namespace ConfigurationReader
         #region IMPORT & EXPORT SETTINGS
         private void OnBtnImportSetting_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            tbKeyValue.Text = cbSavedValues.Text;
         }
 
         private void OnBtnExportSetting_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            int index = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).ToDictionary().Count;
+            _settings.Add($"{Stafi.VALUES_REGION_NAME}:{Stafi.VALUES_NAME}{index}", tbKeyValue.Text);
+            FillSavedValuesComboBox();
         }
         #endregion
 

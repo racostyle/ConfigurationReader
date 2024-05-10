@@ -6,6 +6,7 @@ namespace ConfigurationReader.Assets
     {
         private readonly int _buttonWidth;
         private readonly int _buttonHeight;
+        private EventHandler? _textChangedHandler;
 
         public DarkButtonBuilder(int buttonWidth, int buttonHeight)
         {
@@ -14,9 +15,9 @@ namespace ConfigurationReader.Assets
             _buttonHeight = buttonHeight;
         }
 
-        internal DarkButton Create(ConfigData sConfgData, int index, Panel panel, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
+        internal DarkButton Create(ConfigData sConfgData, int index, Panel pnlConfigurations, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
         {
-            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, panel, 1.25f);
+            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, pnlConfigurations, 1.25f);
 
             some.Click += new EventHandler((sndr, evt) =>
             {
@@ -25,14 +26,17 @@ namespace ConfigurationReader.Assets
                 int i = 0;
                 foreach (string key in sConfgData.Configuration.Keys)
                 {
-                    var btn = CreateButton(key, i, pnlConfigKeys, 1.25f);
+                    string localKey = key;
+
+                    var btn = CreateButton(localKey, i, pnlConfigKeys, 1.25f);
                     btn.Click += new EventHandler((sndr, evt) =>
                     {
-                        tbKeyValue.Text = sConfgData.Configuration[key];
-                        tbKeyValue.TextChanged += new EventHandler((s, e) => 
-                        {
-                            sConfgData.Configuration[key] = tbKeyValue.Text;
-                        });
+                        string localLocalKey = localKey;
+                        if (_textChangedHandler != null)
+                            tbKeyValue.TextChanged -= _textChangedHandler;
+                        _textChangedHandler = (s, e) => TextBoxTextChangedHandler(s, e, sConfgData, localLocalKey);
+                        tbKeyValue.Text = sConfgData.Configuration[localLocalKey];
+                        tbKeyValue.TextChanged += _textChangedHandler;
                     });
                     pnlConfigKeys.Controls.Add(btn);
                     i++;
@@ -40,6 +44,11 @@ namespace ConfigurationReader.Assets
             });
 
             return some;
+        }
+
+        private void TextBoxTextChangedHandler(object sender, EventArgs e, ConfigData sConfgData, string localLocalKey)
+        {
+            sConfgData.Configuration[localLocalKey] = ((TextBox)sender).Text;
         }
 
         private DarkButton CreateButton(string name, int index, Panel panel, float heightMulti = 1)
@@ -78,11 +87,6 @@ namespace ConfigurationReader.Assets
             }
 
             return string.Join("\\", selectedParts);
-        }
-
-        internal void overrideButtonFont(DarkButton button, int size)
-        {
-            button.Font = new Font("Arial", size, FontStyle.Regular);
         }
     }
 }

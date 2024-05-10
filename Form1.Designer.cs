@@ -46,6 +46,7 @@ namespace ConfigurationReader
             btnSaveAll = new DarkButton();
             btnImportSetting = new DarkButton();
             btnExportSetting = new DarkButton();
+            cbSavedValues = new DarkComboBox();
             SuspendLayout();
             // 
             // tbBaseFolder
@@ -95,7 +96,7 @@ namespace ConfigurationReader
             pnlConfigurations.Location = new Point(10, 86);
             pnlConfigurations.Margin = new Padding(3, 2, 3, 2);
             pnlConfigurations.Name = "pnlConfigurations";
-            pnlConfigurations.Size = new Size(225, 257);
+            pnlConfigurations.Size = new Size(225, 285);
             pnlConfigurations.TabIndex = 5;
             pnlConfigurations.WrapContents = false;
             // 
@@ -121,7 +122,7 @@ namespace ConfigurationReader
             pnlConfigKeys.Location = new Point(241, 87);
             pnlConfigKeys.Margin = new Padding(3, 2, 3, 2);
             pnlConfigKeys.Name = "pnlConfigKeys";
-            pnlConfigKeys.Size = new Size(226, 257);
+            pnlConfigKeys.Size = new Size(226, 285);
             pnlConfigKeys.TabIndex = 6;
             pnlConfigKeys.WrapContents = false;
             // 
@@ -168,7 +169,7 @@ namespace ConfigurationReader
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
-            tbKeyValue.Size = new Size(222, 229);
+            tbKeyValue.Size = new Size(222, 257);
             tbKeyValue.TabIndex = 10;
             // 
             // label4
@@ -233,13 +234,13 @@ namespace ConfigurationReader
             btnImportSetting.FlatStyle = FlatStyle.Flat;
             btnImportSetting.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
             btnImportSetting.ForeColor = Color.Transparent;
-            btnImportSetting.Location = new Point(495, 321);
+            btnImportSetting.Location = new Point(494, 348);
             btnImportSetting.Name = "btnImportSetting";
             btnImportSetting.Size = new Size(82, 23);
             btnImportSetting.TabIndex = 15;
             btnImportSetting.Text = "Import ↑";
             btnImportSetting.UseVisualStyleBackColor = false;
-            btnExportSetting.Click += OnBtnImportSetting_Click;
+            btnImportSetting.Click += OnBtnImportSetting_Click;
             // 
             // btnExportSetting
             // 
@@ -249,13 +250,26 @@ namespace ConfigurationReader
             btnExportSetting.FlatStyle = FlatStyle.Flat;
             btnExportSetting.Font = new Font("Arial", 9F);
             btnExportSetting.ForeColor = Color.Transparent;
-            btnExportSetting.Location = new Point(583, 321);
-            btnExportSetting.Name = "btnImportSetting";
+            btnExportSetting.Location = new Point(582, 348);
+            btnExportSetting.Name = "btnExportSetting";
             btnExportSetting.Size = new Size(82, 23);
             btnExportSetting.TabIndex = 16;
             btnExportSetting.Text = "Export ↓";
             btnExportSetting.UseVisualStyleBackColor = false;
             btnExportSetting.Click += OnBtnExportSetting_Click;
+            // 
+            // cbSavedValues
+            // 
+            cbSavedValues.BackColor = Color.Black;
+            cbSavedValues.BorderColor = Color.FromArgb(70, 70, 70);
+            cbSavedValues.FlatStyle = FlatStyle.Flat;
+            cbSavedValues.Font = new Font("Arial", 8F);
+            cbSavedValues.ForeColor = Color.White;
+            cbSavedValues.FormattingEnabled = true;
+            cbSavedValues.Location = new Point(10, 378);
+            cbSavedValues.Name = "cbSavedValues";
+            cbSavedValues.Size = new Size(685, 22);
+            cbSavedValues.TabIndex = 17;
             // 
             // Form1
             // 
@@ -263,6 +277,7 @@ namespace ConfigurationReader
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(710, 409);
+            Controls.Add(cbSavedValues);
             Controls.Add(btnExportSetting);
             Controls.Add(btnImportSetting);
             Controls.Add(btnSaveAll);
@@ -303,6 +318,6 @@ namespace ConfigurationReader
         private FlowLayoutPanel pnlConfigKeys;
         private Label label4;
         private Label label5;
-       
+        private DarkComboBox cbSavedValues;
     }
 }
