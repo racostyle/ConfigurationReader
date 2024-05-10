@@ -92,87 +92,47 @@ namespace ConfigurationReader.Utilities
         #region SAVING
         internal void SaveConfigurationToFile(Dictionary<string, string> dict, string fileLocation)
         {
-            JObject jsonObject = BuildJObjectFromDictionary(dict);
-            string jsonText = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+            JObject jsonObject = CreateJObjectFromNestedDictionary(dict);
+            string jsonText = JsonConvert.SerializeObject(jsonObject, Formatting.None);
             File.WriteAllText(fileLocation, jsonText);
         }
 
-        private JObject BuildJObjectFromDictionary(Dictionary<string, string> dict)
+        public static JObject CreateJObjectFromNestedDictionary(Dictionary<string, string> nestedDictionary)
         {
-            var root = new JObject();
-            foreach (var kvp in dict)
+            var jObject = new JObject();
+
+            foreach (var kvp in nestedDictionary)
             {
-                string[] parts = kvp.Key.Split(':');
-                JObject current = root;
-                for (int i = 0; i < parts.Length; i++)
+                var keys = kvp.Key.Split(':'); // Split keys by ':'
+                var currentJObject = jObject;
+
+                for (int i = 0; i < keys.Length; i++)
                 {
-                    string part = parts[i];
-                    // Check if the part is indicating an array
-                    bool isArray = part.Contains("[") && part.Contains("]");
+                    var key = keys[i];
 
-                    if (isArray)
+                    if (!currentJObject.ContainsKey(key))
                     {
-                        string arrayName = part.Substring(0, part.IndexOf('['));
-                        int arrayIndex = Convert.ToInt32(part.Substring(part.IndexOf('[') + 1, part.IndexOf(']') - part.IndexOf('[') - 1));
-
-                        // Get or create the JArray
-                        JArray arr = current[arrayName] as JArray;
-                        if (arr == null)
+                        if (i == keys.Length - 1)
                         {
-                            arr = new JArray();
-                            current[arrayName] = arr;
-                        }
-
-                        // Ensure the JArray has enough elements
-                        while (arr.Count <= arrayIndex)
-                        {
-                            arr.Add(null);
-                        }
-
-                        if (i == parts.Length - 1) // Last part, assign the value
-                        {
-                            arr[arrayIndex] = kvp.Value;
+                            // Last key, add the value
+                            currentJObject.Add(key, kvp.Value);
                         }
                         else
                         {
-                            var nextPart = parts[i + 1];
-                            if (nextPart.Contains("[") && nextPart.Contains("]"))
-                            {
-                                // Continue with array
-                            }
-                            else
-                            {
-                                JObject obj = arr[arrayIndex] as JObject;
-                                if (obj == null)
-                                {
-                                    obj = new JObject();
-                                    arr[arrayIndex] = obj;
-                                }
-                                current = obj;
-                            }
+                            // Create a new nested JObject
+                            var nested = new JObject();
+                            currentJObject.Add(key, nested);
+                            currentJObject = nested;
                         }
                     }
                     else
                     {
-                        if (i == parts.Length - 1) // Last part, assign the value
-                        {
-                            current[part] = kvp.Value;
-                        }
-                        else
-                        {
-                            JObject nextObject = current[part] as JObject;
-                            if (nextObject == null)
-                            {
-                                nextObject = new JObject();
-                                current[part] = nextObject;
-                            }
-                            current = nextObject;
-                        }
+                        // Key already exists, move to the next level
+                        currentJObject = (JObject)currentJObject[key];
                     }
                 }
             }
-
-            return root;
+            return jObject;
         }
         #endregion
     }
