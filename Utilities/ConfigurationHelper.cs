@@ -59,7 +59,6 @@ namespace ConfigurationReader.Utilities
                     var obj = JObject.Parse(jsonData);
 
                     FillDictionaryFromJObject(obj, dict, string.Empty);
-                    _notificationObject.ShowResultBox(true, "Configurations loaded");
                     return dict;
                 }
                 catch (Exception ex)
@@ -117,7 +116,6 @@ namespace ConfigurationReader.Utilities
                 JObject jsonObject = CreateJObjectFromNestedDictionary(dict);
                 string jsonText = JsonConvert.SerializeObject(jsonObject, Formatting.None);
                 File.WriteAllText(fileLocation, jsonText);
-                _notificationObject.ShowResultBox(true, "Configurations Saved");
             }
             catch (Exception ex)
             {

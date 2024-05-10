@@ -6,18 +6,20 @@ namespace ConfigurationReader.Assets
     {
         private readonly int _buttonWidth;
         private readonly int _buttonHeight;
+        private readonly NotificationObject _notificationObject;
         private EventHandler? _textChangedHandler;
 
-        public DarkButtonBuilder(int buttonWidth, int buttonHeight)
+        public DarkButtonBuilder(int buttonWidth, int buttonHeight, NotificationObject notificationObject)
         {
             // -20 for scrollable bar
             _buttonWidth = buttonWidth - 20;
             _buttonHeight = buttonHeight;
+            _notificationObject = notificationObject;
         }
 
         internal DarkButton Create(ConfigData sConfgData, int index, Panel pnlConfigurations, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
         {
-            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, pnlConfigurations, 1.25f);
+            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, pnlConfigurations, 1.3f);
 
             some.Click += new EventHandler((sndr, evt) =>
             {
@@ -28,10 +30,11 @@ namespace ConfigurationReader.Assets
                 {
                     string localKey = key;
 
-                    var btn = CreateButton(localKey, i, pnlConfigKeys, 1.25f);
+                    var btn = CreateButton(localKey, i, pnlConfigKeys, 1.3f);
                     btn.Click += new EventHandler((sndr, evt) =>
                     {
                         string localLocalKey = localKey;
+                        _notificationObject.LogSelectedKey(localLocalKey);
                         if (_textChangedHandler != null)
                             tbKeyValue.TextChanged -= _textChangedHandler;
                         _textChangedHandler = (s, e) => TextBoxTextChangedHandler(s, e, sConfgData, localLocalKey);
@@ -54,7 +57,7 @@ namespace ConfigurationReader.Assets
         private DarkButton CreateButton(string name, int index, Panel panel, float heightMulti = 1)
         {
             float height = _buttonHeight;
-            float finalHeight = _buttonHeight * heightMulti;
+            float finalHeight = height * heightMulti;
 
             DarkButton some = new DarkButton();
             some.Location = new Point(0, index * (_buttonHeight + 5));

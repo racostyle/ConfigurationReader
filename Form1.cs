@@ -7,18 +7,21 @@ namespace ConfigurationReader
     public partial class Form1 : Form
     {
         private readonly ConfigurationHelper _configurationHelper;
+        private readonly NotificationObject _notificationObject;
         private List<ConfigData> _loadedConfigurations;
         private int _currentConfigIndex = 0;
 
-        private readonly Dictionary<string, string> _settings; 
+        private readonly Dictionary<string, string> _settings;
 
         public Form1()
         {
             InitializeComponent();
             AdjustFormsComponents();
             _loadedConfigurations = new List<ConfigData>();
-            _configurationHelper = new ConfigurationHelper(new NotificationObject());
+            _notificationObject = new NotificationObject(SetSelectedKeyText);
+            _configurationHelper = new ConfigurationHelper(_notificationObject);
             _settings = _configurationHelper.LoadAppsettings();
+            ClearAll();
             FillFormElements();
         }
 
@@ -51,6 +54,22 @@ namespace ConfigurationReader
             foreach (var item in items)
                 cbSavedValues.Items.Add(item);
         }
+
+        private void SetSelectedKeyText(string value)
+        {
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                tbSelectedKey.Text = value;
+            });
+        }
+
+        private void ClearAll()
+        {
+            tbKeyValue.Text = string.Empty;
+            tbSelectedKey.Text = string.Empty;
+            pnlConfigKeys.Controls.Clear();
+        }
+
         #endregion
 
         #region EVENT HANDLERS
@@ -72,6 +91,7 @@ namespace ConfigurationReader
             if (string.IsNullOrEmpty(tbBaseFolder.Text))
                 return;
 
+            ClearAll();
             string[] configLocations = FindConfigurations();
             CreateConfigObjects(configLocations);
             CreateButtonsForEachConfiguration(pnlConfigurations);
@@ -101,7 +121,7 @@ namespace ConfigurationReader
 
         private void CreateButtonsForEachConfiguration(FlowLayoutPanel pnlConfigurations)
         {
-            var buttonBuilder = new DarkButtonBuilder(pnlConfigurations.Width - 10, 35);
+            var buttonBuilder = new DarkButtonBuilder(pnlConfigurations.Width - 10, 35, _notificationObject);
 
             pnlConfigurations.Controls.Clear();
             List<DarkButton> buttons = new List<DarkButton>();

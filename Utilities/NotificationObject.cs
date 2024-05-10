@@ -2,10 +2,11 @@
 {
     internal class NotificationObject
     {
+        private readonly Action<string> _setSelectedKeyText;
 
-        public NotificationObject()
+        public NotificationObject(Action<string> setSelectedKeyText)
         {
-
+            _setSelectedKeyText = setSelectedKeyText;
         }
 
         internal void ShowResultBox(bool succes, string message = "")
@@ -22,7 +23,11 @@
                     message = "Operation failed!";
                 MessageBox.Show(message, "Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-                
+        }
+
+        internal void LogSelectedKey(string message)
+        {
+            _setSelectedKeyText(message);
         }
     }
 }
