@@ -59,7 +59,7 @@ namespace ConfigurationReader
             tbBaseFolder.BorderStyle = BorderStyle.FixedSingle;
             tbBaseFolder.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
             tbBaseFolder.ForeColor = SystemColors.HighlightText;
-            tbBaseFolder.Location = new Point(111, 14);
+            tbBaseFolder.Location = new Point(111, 13);
             tbBaseFolder.Name = "tbBaseFolder";
             tbBaseFolder.Size = new Size(464, 25);
             tbBaseFolder.TabIndex = 0;
@@ -82,7 +82,7 @@ namespace ConfigurationReader
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 6.25F);
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(117, 45);
+            label2.Location = new Point(111, 41);
             label2.Name = "label2";
             label2.Size = new Size(429, 13);
             label2.TabIndex = 3;
@@ -94,6 +94,7 @@ namespace ConfigurationReader
             pnlConfigurations.Anchor = AnchorStyles.Top;
             pnlConfigurations.AutoScroll = true;
             pnlConfigurations.BackColor = SystemColors.WindowFrame;
+            pnlConfigurations.BorderStyle = BorderStyle.FixedSingle;
             pnlConfigurations.FlowDirection = FlowDirection.TopDown;
             pnlConfigurations.ForeColor = Color.Transparent;
             pnlConfigurations.Location = new Point(12, 93);
@@ -119,11 +120,12 @@ namespace ConfigurationReader
             pnlConfigKeys.Anchor = AnchorStyles.Top;
             pnlConfigKeys.AutoScroll = true;
             pnlConfigKeys.BackColor = SystemColors.WindowFrame;
+            pnlConfigKeys.BorderStyle = BorderStyle.FixedSingle;
             pnlConfigKeys.FlowDirection = FlowDirection.TopDown;
             pnlConfigKeys.ForeColor = Color.Transparent;
-            pnlConfigKeys.Location = new Point(276, 95);
+            pnlConfigKeys.Location = new Point(276, 93);
             pnlConfigKeys.Name = "pnlConfigKeys";
-            pnlConfigKeys.Size = new Size(258, 403);
+            pnlConfigKeys.Size = new Size(258, 405);
             pnlConfigKeys.TabIndex = 6;
             pnlConfigKeys.WrapContents = false;
             // 
@@ -168,11 +170,11 @@ namespace ConfigurationReader
             tbKeyValue.BorderStyle = BorderStyle.FixedSingle;
             tbKeyValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tbKeyValue.ForeColor = SystemColors.HighlightText;
-            tbKeyValue.Location = new Point(539, 169);
+            tbKeyValue.Location = new Point(539, 165);
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
-            tbKeyValue.Size = new Size(292, 292);
+            tbKeyValue.Size = new Size(292, 296);
             tbKeyValue.TabIndex = 10;
             // 
             // label4
@@ -191,7 +193,7 @@ namespace ConfigurationReader
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(539, 146);
+            label5.Location = new Point(539, 142);
             label5.Name = "label5";
             label5.Size = new Size(47, 20);
             label5.TabIndex = 12;
@@ -239,10 +241,10 @@ namespace ConfigurationReader
             btnImportSetting.FlatStyle = FlatStyle.Flat;
             btnImportSetting.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
             btnImportSetting.ForeColor = Color.Transparent;
-            btnImportSetting.Location = new Point(563, 468);
+            btnImportSetting.Location = new Point(688, 467);
             btnImportSetting.Margin = new Padding(3, 4, 3, 4);
             btnImportSetting.Name = "btnImportSetting";
-            btnImportSetting.Size = new Size(113, 31);
+            btnImportSetting.Size = new Size(144, 31);
             btnImportSetting.TabIndex = 15;
             btnImportSetting.Text = "Import ↑";
             btnImportSetting.UseVisualStyleBackColor = false;
@@ -256,10 +258,10 @@ namespace ConfigurationReader
             btnExportSetting.FlatStyle = FlatStyle.Flat;
             btnExportSetting.Font = new Font("Arial", 9F);
             btnExportSetting.ForeColor = Color.Transparent;
-            btnExportSetting.Location = new Point(682, 468);
+            btnExportSetting.Location = new Point(540, 467);
             btnExportSetting.Margin = new Padding(3, 4, 3, 4);
             btnExportSetting.Name = "btnExportSetting";
-            btnExportSetting.Size = new Size(113, 31);
+            btnExportSetting.Size = new Size(142, 31);
             btnExportSetting.TabIndex = 16;
             btnExportSetting.Text = "Export ↓";
             btnExportSetting.UseVisualStyleBackColor = false;
@@ -285,7 +287,7 @@ namespace ConfigurationReader
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(539, 93);
+            label6.Location = new Point(539, 92);
             label6.Name = "label6";
             label6.Size = new Size(97, 20);
             label6.TabIndex = 18;
@@ -299,18 +301,18 @@ namespace ConfigurationReader
             tbSelectedKey.BorderStyle = BorderStyle.FixedSingle;
             tbSelectedKey.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
             tbSelectedKey.ForeColor = SystemColors.HighlightText;
-            tbSelectedKey.Location = new Point(539, 116);
+            tbSelectedKey.Location = new Point(539, 114);
             tbSelectedKey.Name = "tbSelectedKey";
+            tbSelectedKey.ReadOnly = true;
             tbSelectedKey.Size = new Size(292, 25);
             tbSelectedKey.TabIndex = 19;
-            tbSelectedKey.Text = "A:\\\\AAAAAAAAAA";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(843, 545);
+            ClientSize = new Size(843, 542);
             Controls.Add(btnFindFolder);
             Controls.Add(btnLoadConfigs);
             Controls.Add(tbSelectedKey);
@@ -331,7 +333,7 @@ namespace ConfigurationReader
             Controls.Add(tbBaseFolder);
             ForeColor = Color.Gray;
             Name = "Form1";
-            Text = "Form1";
+            Text = "Configuration Editor";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -340,6 +342,7 @@ namespace ConfigurationReader
         private FolderBrowserDialog folderBrowserDialog1;
         private DarkTextBox tbBaseFolder;
         private DarkTextBox tbKeyValue;
+        private DarkTextBox tbSelectedKey;
         private DarkButton btnFindFolder;
         private DarkButton btnLoadConfigs;
         private DarkButton btnSaveCurrent;
@@ -349,12 +352,11 @@ namespace ConfigurationReader
         private Label label1;
         private Label label2;
         private Label label3;
-        private FlowLayoutPanel pnlConfigurations;
-        private FlowLayoutPanel pnlConfigKeys;
         private Label label4;
         private Label label5;
-        private DarkComboBox cbSavedValues;
         private Label label6;
-        private DarkTextBox tbSelectedKey;
+        private FlowLayoutPanel pnlConfigurations;
+        private FlowLayoutPanel pnlConfigKeys;
+        private DarkComboBox cbSavedValues;
     }
 }
