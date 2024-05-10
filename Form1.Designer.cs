@@ -132,7 +132,7 @@ namespace ConfigurationReader
             btnFindFolder.TabIndex = 8;
             btnFindFolder.Text = "Find Folder";
             btnFindFolder.UseVisualStyleBackColor = false;
-            btnFindFolder.Click += OnLoadConfigurations_Click;
+            btnFindFolder.Click += OnFindFolder_Click;
             // 
             // btnLoadConfigs
             // 
@@ -148,6 +148,7 @@ namespace ConfigurationReader
             btnLoadConfigs.TabIndex = 9;
             btnLoadConfigs.Text = "Load Configs";
             btnLoadConfigs.UseVisualStyleBackColor = false;
+            btnLoadConfigs.Click += OnLoadConfigurations_Click;
             // 
             // tbKeyValue
             // 
