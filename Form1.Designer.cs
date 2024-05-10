@@ -239,6 +239,7 @@ namespace ConfigurationReader
             btnImportSetting.TabIndex = 15;
             btnImportSetting.Text = "Import ↑";
             btnImportSetting.UseVisualStyleBackColor = false;
+            btnExportSetting.Click += OnBtnImportSetting_Click;
             // 
             // btnExportSetting
             // 
@@ -254,6 +255,7 @@ namespace ConfigurationReader
             btnExportSetting.TabIndex = 16;
             btnExportSetting.Text = "Export ↓";
             btnExportSetting.UseVisualStyleBackColor = false;
+            btnExportSetting.Click += OnBtnExportSetting_Click;
             // 
             // Form1
             // 

@@ -122,6 +122,18 @@ namespace ConfigurationReader
         }
         #endregion
 
+        #region IMPORT & EXPORT SETTINGS
+        private void OnBtnImportSetting_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnBtnExportSetting_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
         #region OTHER HANDLERS
         private void OnTbBaseFolder_TextChanged(object sender, EventArgs e)
         {
