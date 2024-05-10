@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-
-namespace ConfigurationReader.Assets
+﻿namespace ConfigurationReader.Assets
 {
-    internal class DarkComboBox : ComboBox
+    internal class DarkTextBox : TextBox
     {
         private Color _borderColor = CustomColors.BORDER_COLOR;
 
@@ -12,13 +10,11 @@ namespace ConfigurationReader.Assets
             set { _borderColor = value; Invalidate(); }
         }
 
-        public DarkComboBox()
+        public DarkTextBox()
         {
             this.Font = new Font("Arial", 9, FontStyle.Regular);
-            this.FlatStyle = FlatStyle.Flat;
             this.BackColor = Color.Black;
             this.ForeColor = Color.White;
-            this.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         protected override void OnPaint(PaintEventArgs e)
