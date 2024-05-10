@@ -1,10 +1,28 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace ConfigurationReader.Utilities
 {
     internal class ConfigurationHelper
     {
+        private NotificationObject _notificationObject;
+        private StringBuilder _sb;
+
+        public ConfigurationHelper(NotificationObject notificationObject)
+        {
+            _notificationObject = notificationObject;
+            _sb = new StringBuilder();
+        }
+
+        private string BuildErrorMessage(string message, string errorMessage)
+        {
+            _sb.Clear();
+            _sb.AppendLine("Error occured while loading configurations");
+            _sb.AppendLine(Environment.NewLine);
+            _sb.AppendLine(errorMessage);
+            return _sb.ToString();
+        }
         #region APPSETTINGS
         internal Dictionary<string, string> LoadAppsettings()
         {
@@ -41,13 +59,15 @@ namespace ConfigurationReader.Utilities
                     var obj = JObject.Parse(jsonData);
 
                     FillDictionaryFromJObject(obj, dict, string.Empty);
+                    _notificationObject.ShowResultBox(true, "Configurations loaded");
                     return dict;
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
-                }   
-                
+                    var message = BuildErrorMessage("Error occured while loading configurations", ex.Message);
+                    _notificationObject.ShowResultBox(false, message);
+                }
+
             }
             return null;
         }
@@ -92,9 +112,19 @@ namespace ConfigurationReader.Utilities
         #region SAVING
         internal void SaveConfigurationToFile(Dictionary<string, string> dict, string fileLocation)
         {
-            JObject jsonObject = CreateJObjectFromNestedDictionary(dict);
-            string jsonText = JsonConvert.SerializeObject(jsonObject, Formatting.None);
-            File.WriteAllText(fileLocation, jsonText);
+            try
+            {
+                JObject jsonObject = CreateJObjectFromNestedDictionary(dict);
+                string jsonText = JsonConvert.SerializeObject(jsonObject, Formatting.None);
+                File.WriteAllText(fileLocation, jsonText);
+                _notificationObject.ShowResultBox(true, "Configurations Saved");
+            }
+            catch (Exception ex)
+            {
+                var message = BuildErrorMessage("Error occured while saving configurations", ex.Message);
+                _notificationObject.ShowResultBox(false, message);
+            }
+
         }
 
         public static JObject CreateJObjectFromNestedDictionary(Dictionary<string, string> nestedDictionary)

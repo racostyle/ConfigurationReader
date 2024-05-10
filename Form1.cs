@@ -7,7 +7,6 @@ namespace ConfigurationReader
     public partial class Form1 : Form
     {
         private readonly ConfigurationHelper _configurationHelper;
-
         private List<ConfigData> _loadedConfigurations;
         private int _currentConfigIndex = 0;
 
@@ -18,9 +17,8 @@ namespace ConfigurationReader
             InitializeComponent();
             AdjustFormsComponents();
             _loadedConfigurations = new List<ConfigData>();
-            _configurationHelper = new ConfigurationHelper();
+            _configurationHelper = new ConfigurationHelper(new NotificationObject());
             _settings = _configurationHelper.LoadAppsettings();
-
             FillFormElements();
         }
 
