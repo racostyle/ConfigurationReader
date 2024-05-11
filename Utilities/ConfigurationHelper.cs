@@ -109,20 +109,21 @@ namespace ConfigurationReader.Utilities
         #endregion
 
         #region SAVING
-        internal void SaveConfigurationToFile(Dictionary<string, string> dict, string fileLocation)
+        internal bool SaveConfigurationToFile(Dictionary<string, string> dict, string fileLocation)
         {
             try
             {
                 JObject jsonObject = CreateJObjectFromNestedDictionary(dict);
                 string jsonText = JsonConvert.SerializeObject(jsonObject, Formatting.None);
                 File.WriteAllText(fileLocation, jsonText);
+                return true;
             }
             catch (Exception ex)
             {
                 var message = BuildErrorMessage("Error occured while saving configurations", ex.Message);
                 _notificationObject.ShowResultBox(false, message);
+                return false;
             }
-
         }
 
         public static JObject CreateJObjectFromNestedDictionary(Dictionary<string, string> nestedDictionary)

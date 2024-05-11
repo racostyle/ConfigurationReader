@@ -49,6 +49,7 @@ namespace ConfigurationReader
             cbSavedValues = new DarkComboBox();
             label6 = new Label();
             tbSelectedKey = new DarkTextBox();
+            notifySavingPannel = new Panel();
             SuspendLayout();
             // 
             // tbBaseFolder
@@ -207,7 +208,7 @@ namespace ConfigurationReader
             btnSaveCurrent.FlatStyle = FlatStyle.Flat;
             btnSaveCurrent.Font = new Font("Arial", 8F);
             btnSaveCurrent.ForeColor = Color.Transparent;
-            btnSaveCurrent.Location = new Point(581, 50);
+            btnSaveCurrent.Location = new Point(581, 48);
             btnSaveCurrent.Margin = new Padding(3, 4, 3, 4);
             btnSaveCurrent.Name = "btnSaveCurrent";
             btnSaveCurrent.Size = new Size(121, 31);
@@ -224,7 +225,7 @@ namespace ConfigurationReader
             btnSaveAll.FlatStyle = FlatStyle.Flat;
             btnSaveAll.Font = new Font("Arial", 8F);
             btnSaveAll.ForeColor = Color.Transparent;
-            btnSaveAll.Location = new Point(708, 50);
+            btnSaveAll.Location = new Point(707, 48);
             btnSaveAll.Margin = new Padding(3, 4, 3, 4);
             btnSaveAll.Name = "btnSaveAll";
             btnSaveAll.Size = new Size(124, 31);
@@ -307,18 +308,26 @@ namespace ConfigurationReader
             tbSelectedKey.Size = new Size(292, 25);
             tbSelectedKey.TabIndex = 19;
             // 
+            // notifySavingPannel
+            // 
+            notifySavingPannel.Location = new Point(582, 82);
+            notifySavingPannel.Name = "notifySavingPannel";
+            notifySavingPannel.Size = new Size(250, 7);
+            notifySavingPannel.TabIndex = 20;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(843, 542);
+            Controls.Add(btnSaveAll);
+            Controls.Add(notifySavingPannel);
+            Controls.Add(btnSaveCurrent);
             Controls.Add(btnFindFolder);
             Controls.Add(btnLoadConfigs);
             Controls.Add(tbSelectedKey);
-            Controls.Add(btnSaveCurrent);
             Controls.Add(label6);
-            Controls.Add(btnSaveAll);
             Controls.Add(cbSavedValues);
             Controls.Add(btnExportSetting);
             Controls.Add(btnImportSetting);
@@ -358,5 +367,6 @@ namespace ConfigurationReader
         private FlowLayoutPanel pnlConfigurations;
         private FlowLayoutPanel pnlConfigKeys;
         private DarkComboBox cbSavedValues;
+        private Panel notifySavingPannel;
     }
 }

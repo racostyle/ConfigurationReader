@@ -53,6 +53,7 @@ namespace ConfigurationReader
 
             foreach (var item in items)
                 cbSavedValues.Items.Add(item);
+            SelectComboBoxItem(cbSavedValues);
         }
 
         private void SetSelectedKeyText(string value)
@@ -68,6 +69,15 @@ namespace ConfigurationReader
             tbKeyValue.Text = string.Empty;
             tbSelectedKey.Text = string.Empty;
             pnlConfigKeys.Controls.Clear();
+        }
+
+        private void SelectComboBoxItem(ComboBox cb)
+        {
+            if (cb.Items.Count == 0)
+                return;
+
+            cb.SelectedIndex = 0;
+            cb.SelectedItem = cb.SelectedIndex;
         }
 
         #endregion
@@ -143,18 +153,43 @@ namespace ConfigurationReader
 
         private void OnBtnSaveCurrent_Click(object sender, EventArgs e)
         {
+            if (_loadedConfigurations == null || _loadedConfigurations.Count == 0)
+                return;
+
             var path = _loadedConfigurations[_currentConfigIndex].FullName;
             var config = _loadedConfigurations[_currentConfigIndex].Configuration;
-            _configurationHelper.SaveConfigurationToFile(config, path);
+            var result = _configurationHelper.SaveConfigurationToFile(config, path);
+
+            if (result)
+                NotifyUserIfSaveSuccessful();
         }
 
         private void OnBtnSaveAll_Click(object sender, EventArgs e)
         {
+            if (_loadedConfigurations == null || _loadedConfigurations.Count == 0)
+                return;
+
+            List<bool> results = new List<bool>();
             foreach (var config in _loadedConfigurations)
             {
                 var path = config.FullName;
-                _configurationHelper.SaveConfigurationToFile(config.Configuration, path);
+                var result = _configurationHelper.SaveConfigurationToFile(config.Configuration, path);
+                results.Add(result);
             }
+
+            if (results.All(x => x == true))
+                NotifyUserIfSaveSuccessful();
+        }
+
+        private void NotifyUserIfSaveSuccessful()
+        {
+            var oldColor = notifySavingPannel.BackColor;
+            notifySavingPannel.BackColor = Color.Green;
+            Task.Run(() =>
+            {
+                Task.Delay(300).Wait();
+                notifySavingPannel.BackColor = oldColor;
+            });
         }
         #endregion
 
