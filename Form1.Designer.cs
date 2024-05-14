@@ -173,12 +173,12 @@ namespace ConfigurationReader
             tbKeyValue.BorderStyle = BorderStyle.FixedSingle;
             tbKeyValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tbKeyValue.ForeColor = SystemColors.HighlightText;
-            tbKeyValue.Location = new Point(499, 125);
+            tbKeyValue.Location = new Point(499, 126);
             tbKeyValue.Margin = new Padding(3, 2, 3, 2);
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
-            tbKeyValue.Size = new Size(278, 222);
+            tbKeyValue.Size = new Size(278, 221);
             tbKeyValue.TabIndex = 10;
             // 
             // label4
@@ -197,7 +197,7 @@ namespace ConfigurationReader
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(499, 109);
+            label5.Location = new Point(499, 110);
             label5.Name = "label5";
             label5.Size = new Size(37, 15);
             label5.TabIndex = 12;
@@ -249,7 +249,7 @@ namespace ConfigurationReader
             btnImportSetting.TabIndex = 15;
             btnImportSetting.Text = "From Clipboard ↑";
             btnImportSetting.UseVisualStyleBackColor = false;
-            btnImportSetting.Click += OnBtnImportSetting_Click;
+            btnImportSetting.Click += OnBtnFromClipboard_Click;
             // 
             // btnExportSetting
             // 
@@ -265,7 +265,7 @@ namespace ConfigurationReader
             btnExportSetting.TabIndex = 16;
             btnExportSetting.Text = "To Clipboard ↓";
             btnExportSetting.UseVisualStyleBackColor = false;
-            btnExportSetting.Click += OnBtnExportSetting_Click;
+            btnExportSetting.Click += OnBtnToClipboard_Click;
             // 
             // cbSavedValues
             // 
@@ -286,7 +286,7 @@ namespace ConfigurationReader
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(499, 71);
+            label6.Location = new Point(499, 69);
             label6.Name = "label6";
             label6.Size = new Size(80, 15);
             label6.TabIndex = 18;
@@ -300,7 +300,7 @@ namespace ConfigurationReader
             tbSelectedKey.BorderStyle = BorderStyle.FixedSingle;
             tbSelectedKey.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
             tbSelectedKey.ForeColor = SystemColors.HighlightText;
-            tbSelectedKey.Location = new Point(498, 88);
+            tbSelectedKey.Location = new Point(498, 86);
             tbSelectedKey.Margin = new Padding(3, 2, 3, 2);
             tbSelectedKey.Name = "tbSelectedKey";
             tbSelectedKey.ReadOnly = true;

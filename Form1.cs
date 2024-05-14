@@ -194,15 +194,20 @@ namespace ConfigurationReader
         #endregion
 
         #region IMPORT & EXPORT SETTINGS
-        private void OnBtnImportSetting_Click(object sender, EventArgs e)
+        private void OnBtnFromClipboard_Click(object sender, EventArgs e)
         {
             tbKeyValue.Text = cbSavedValues.Text;
         }
 
-        private void OnBtnExportSetting_Click(object sender, EventArgs e)
+        private void OnBtnToClipboard_Click(object sender, EventArgs e)
         {
+            var value = tbKeyValue.Text;
+            if (_settings.ContainsValue(value))
+                return;
+
             int index = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).ToDictionary().Count;
-            _settings.Add($"{Stafi.VALUES_REGION_NAME}:{Stafi.VALUES_NAME}{index}", tbKeyValue.Text);
+            var key = $"{Stafi.VALUES_REGION_NAME}:{Stafi.VALUES_NAME}{index}";
+            _settings.Add(key, value);
             FillSavedValuesComboBox();
         }
         #endregion
