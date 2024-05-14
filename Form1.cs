@@ -76,7 +76,7 @@ namespace ConfigurationReader
             if (cb.Items.Count == 0)
                 return;
 
-            cb.SelectedIndex = 0;
+            cb.SelectedIndex = cb.Items.Count - 1;
             cb.SelectedItem = cb.SelectedIndex;
         }
 

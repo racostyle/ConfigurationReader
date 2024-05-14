@@ -320,7 +320,7 @@ namespace ConfigurationReader
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(12, 382);
+            label7.Location = new Point(12, 383);
             label7.Name = "label7";
             label7.Size = new Size(62, 15);
             label7.TabIndex = 21;
