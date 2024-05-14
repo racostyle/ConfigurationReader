@@ -11,8 +11,8 @@ namespace ConfigurationReader.Assets
 
         public DarkButtonBuilder(int buttonWidth, int buttonHeight, NotificationObject notificationObject)
         {
-            // -20 for scrollable bar
-            _buttonWidth = buttonWidth - 20;
+            // -21 for scrollable bar
+            _buttonWidth = buttonWidth - 21;
             _buttonHeight = buttonHeight;
             _notificationObject = notificationObject;
         }
