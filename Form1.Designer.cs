@@ -86,9 +86,9 @@ namespace ConfigurationReader
             // 
             // notifySavingPannel
             // 
-            notifySavingPannel.Location = new Point(704, 82);
+            notifySavingPannel.Location = new Point(706, 82);
             notifySavingPannel.Name = "notifySavingPannel";
-            notifySavingPannel.Size = new Size(250, 7);
+            notifySavingPannel.Size = new Size(243, 10);
             notifySavingPannel.TabIndex = 62;
             // 
             // btnSaveCurrent
