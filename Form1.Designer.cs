@@ -58,7 +58,7 @@ namespace ConfigurationReader
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(20, 507);
+            label7.Location = new Point(12, 506);
             label7.Name = "label7";
             label7.Size = new Size(80, 20);
             label7.TabIndex = 57;
@@ -168,10 +168,10 @@ namespace ConfigurationReader
             cbSavedValues.Font = new Font("Arial", 9F);
             cbSavedValues.ForeColor = Color.White;
             cbSavedValues.FormattingEnabled = true;
-            cbSavedValues.Location = new Point(105, 505);
+            cbSavedValues.Location = new Point(98, 505);
             cbSavedValues.Margin = new Padding(3, 4, 3, 4);
             cbSavedValues.Name = "cbSavedValues";
-            cbSavedValues.Size = new Size(792, 25);
+            cbSavedValues.Size = new Size(799, 25);
             cbSavedValues.TabIndex = 61;
             // 
             // btnExportSetting
