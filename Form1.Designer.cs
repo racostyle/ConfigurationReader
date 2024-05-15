@@ -52,6 +52,8 @@ namespace ConfigurationReader
             label2 = new Label();
             label1 = new Label();
             tbBaseFolder = new DarkTextBox();
+            tbSelectedConfig = new DarkTextBox();
+            label8 = new Label();
             SuspendLayout();
             // 
             // label7
@@ -87,7 +89,7 @@ namespace ConfigurationReader
             notifySavingPannel.Location = new Point(704, 82);
             notifySavingPannel.Name = "notifySavingPannel";
             notifySavingPannel.Size = new Size(250, 7);
-            notifySavingPannel.TabIndex = 60;
+            notifySavingPannel.TabIndex = 62;
             // 
             // btnSaveCurrent
             // 
@@ -147,7 +149,7 @@ namespace ConfigurationReader
             tbSelectedKey.BorderStyle = BorderStyle.FixedSingle;
             tbSelectedKey.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
             tbSelectedKey.ForeColor = SystemColors.HighlightText;
-            tbSelectedKey.Location = new Point(617, 114);
+            tbSelectedKey.Location = new Point(616, 167);
             tbSelectedKey.Name = "tbSelectedKey";
             tbSelectedKey.ReadOnly = true;
             tbSelectedKey.Size = new Size(338, 25);
@@ -158,7 +160,7 @@ namespace ConfigurationReader
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(616, 93);
+            label6.Location = new Point(616, 144);
             label6.Name = "label6";
             label6.Size = new Size(97, 20);
             label6.TabIndex = 58;
@@ -218,7 +220,7 @@ namespace ConfigurationReader
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(616, 144);
+            label5.Location = new Point(616, 195);
             label5.Name = "label5";
             label5.Size = new Size(47, 20);
             label5.TabIndex = 52;
@@ -281,11 +283,11 @@ namespace ConfigurationReader
             tbKeyValue.BorderStyle = BorderStyle.FixedSingle;
             tbKeyValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tbKeyValue.ForeColor = SystemColors.HighlightText;
-            tbKeyValue.Location = new Point(617, 167);
+            tbKeyValue.Location = new Point(617, 217);
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
-            tbKeyValue.Size = new Size(337, 294);
+            tbKeyValue.Size = new Size(337, 243);
             tbKeyValue.TabIndex = 50;
             // 
             // label2
@@ -323,12 +325,38 @@ namespace ConfigurationReader
             tbBaseFolder.TabIndex = 43;
             tbBaseFolder.Text = "A:\\\\AAAAAAAAAA";
             // 
+            // tbSelectedConfig
+            // 
+            tbSelectedConfig.BackColor = SystemColors.WindowFrame;
+            tbSelectedConfig.BorderColor = Color.FromArgb(70, 70, 70);
+            tbSelectedConfig.BorderStyle = BorderStyle.FixedSingle;
+            tbSelectedConfig.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            tbSelectedConfig.ForeColor = SystemColors.HighlightText;
+            tbSelectedConfig.Location = new Point(616, 116);
+            tbSelectedConfig.Name = "tbSelectedConfig";
+            tbSelectedConfig.ReadOnly = true;
+            tbSelectedConfig.Size = new Size(338, 25);
+            tbSelectedConfig.TabIndex = 63;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = SystemColors.ButtonHighlight;
+            label8.Location = new Point(616, 93);
+            label8.Name = "label8";
+            label8.Size = new Size(166, 20);
+            label8.TabIndex = 60;
+            label8.Text = "Selected configuration";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(964, 539);
+            Controls.Add(tbSelectedConfig);
+            Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(btnSaveAll);
             Controls.Add(notifySavingPannel);
@@ -380,5 +408,7 @@ namespace ConfigurationReader
         private Label label2;
         private Label label1;
         private DarkTextBox tbBaseFolder;
+        private DarkTextBox tbSelectedConfig;
+        private Label label8;
     }
 }

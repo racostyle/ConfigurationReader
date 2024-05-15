@@ -137,7 +137,7 @@ namespace ConfigurationReader
             List<DarkButton> buttons = new List<DarkButton>();
             for (int i = 0; i < _loadedConfigurations.Count; i++)
             {
-                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, configPanel, pnlConfigKeys, tbKeyValue, SetCurrentConfigIndex);
+                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, configPanel, pnlConfigKeys, tbKeyValue, tbSelectedConfig, SetCurrentConfigIndex);
                 buttons.Add(btn);
                 configPanel.Controls.Add(btn);
             }

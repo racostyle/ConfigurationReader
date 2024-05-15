@@ -17,12 +17,15 @@ namespace ConfigurationReader.Assets
             _notificationObject = notificationObject;
         }
 
-        internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
+        internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, FlowLayoutPanel pnlConfigKeys, TextBox tbSelectedKey, TextBox tbSelectedConfig, Action<int> setCurrentIndex)
         {
             DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, configPanel, 1.3f);
 
             some.Click += new EventHandler((sndr, evt) =>
             {
+                Button clickedButton = (Button)sndr;
+                tbSelectedConfig.Text = clickedButton.Text;
+
                 setCurrentIndex?.Invoke(sConfgData.Index);
                 pnlConfigKeys.Controls.Clear();
                 int i = 0;
@@ -36,10 +39,10 @@ namespace ConfigurationReader.Assets
                         string localLocalKey = localKey;
                         _notificationObject.LogSelectedKey(localLocalKey);
                         if (_textChangedHandler != null)
-                            tbKeyValue.TextChanged -= _textChangedHandler;
+                            tbSelectedKey.TextChanged -= _textChangedHandler;
                         _textChangedHandler = (s, e) => TextBoxTextChangedHandler(s, e, sConfgData, localLocalKey);
-                        tbKeyValue.Text = sConfgData.Configuration[localLocalKey];
-                        tbKeyValue.TextChanged += _textChangedHandler;
+                        tbSelectedKey.Text = sConfgData.Configuration[localLocalKey];
+                        tbSelectedKey.TextChanged += _textChangedHandler;
                     });
                     pnlConfigKeys.Controls.Add(btn);
                     i++;
