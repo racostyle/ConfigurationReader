@@ -61,10 +61,10 @@ namespace ConfigurationReader
             tbBaseFolder.BorderStyle = BorderStyle.FixedSingle;
             tbBaseFolder.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
             tbBaseFolder.ForeColor = SystemColors.HighlightText;
-            tbBaseFolder.Location = new Point(93, 9);
+            tbBaseFolder.Location = new Point(96, 9);
             tbBaseFolder.Margin = new Padding(3, 2, 3, 2);
             tbBaseFolder.Name = "tbBaseFolder";
-            tbBaseFolder.Size = new Size(458, 22);
+            tbBaseFolder.Size = new Size(455, 22);
             tbBaseFolder.TabIndex = 0;
             tbBaseFolder.Text = "A:\\\\AAAAAAAAAA";
             tbBaseFolder.TextChanged += OnTbBaseFolder_TextChanged;
@@ -74,7 +74,7 @@ namespace ConfigurationReader
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(7, 11);
+            label1.Location = new Point(6, 12);
             label1.Name = "label1";
             label1.Size = new Size(83, 15);
             label1.TabIndex = 1;
@@ -276,9 +276,9 @@ namespace ConfigurationReader
             cbSavedValues.Font = new Font("Arial", 9F);
             cbSavedValues.ForeColor = Color.White;
             cbSavedValues.FormattingEnabled = true;
-            cbSavedValues.Location = new Point(80, 379);
+            cbSavedValues.Location = new Point(87, 379);
             cbSavedValues.Name = "cbSavedValues";
-            cbSavedValues.Size = new Size(697, 23);
+            cbSavedValues.Size = new Size(689, 23);
             cbSavedValues.TabIndex = 17;
             // 
             // label6
@@ -320,7 +320,7 @@ namespace ConfigurationReader
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(12, 383);
+            label7.Location = new Point(12, 382);
             label7.Name = "label7";
             label7.Size = new Size(62, 15);
             label7.TabIndex = 21;
