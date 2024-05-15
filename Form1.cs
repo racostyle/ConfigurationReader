@@ -68,6 +68,7 @@ namespace ConfigurationReader
         {
             tbKeyValue.Text = string.Empty;
             tbSelectedKey.Text = string.Empty;
+            tbSelectedConfig.Text = string.Empty;
             pnlConfigKeys.Controls.Clear();
         }
 
@@ -128,7 +129,6 @@ namespace ConfigurationReader
         #endregion
 
         #region ADDING BUTTONS
-
         private void CreateButtonsForEachConfiguration(FlowLayoutPanel configPanel)
         {
             var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35, _notificationObject);
