@@ -147,10 +147,10 @@ namespace ConfigurationReader
             tbSelectedKey.BorderStyle = BorderStyle.FixedSingle;
             tbSelectedKey.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
             tbSelectedKey.ForeColor = SystemColors.HighlightText;
-            tbSelectedKey.Location = new Point(616, 114);
+            tbSelectedKey.Location = new Point(617, 114);
             tbSelectedKey.Name = "tbSelectedKey";
             tbSelectedKey.ReadOnly = true;
-            tbSelectedKey.Size = new Size(339, 25);
+            tbSelectedKey.Size = new Size(338, 25);
             tbSelectedKey.TabIndex = 59;
             // 
             // label6
@@ -243,9 +243,9 @@ namespace ConfigurationReader
             pnlConfigKeys.BorderStyle = BorderStyle.FixedSingle;
             pnlConfigKeys.FlowDirection = FlowDirection.TopDown;
             pnlConfigKeys.ForeColor = Color.Transparent;
-            pnlConfigKeys.Location = new Point(305, 88);
+            pnlConfigKeys.Location = new Point(313, 88);
             pnlConfigKeys.Name = "pnlConfigKeys";
-            pnlConfigKeys.Size = new Size(305, 410);
+            pnlConfigKeys.Size = new Size(298, 410);
             pnlConfigKeys.TabIndex = 47;
             pnlConfigKeys.WrapContents = false;
             // 
@@ -270,7 +270,7 @@ namespace ConfigurationReader
             pnlConfigurations.ForeColor = Color.Transparent;
             pnlConfigurations.Location = new Point(10, 88);
             pnlConfigurations.Name = "pnlConfigurations";
-            pnlConfigurations.Size = new Size(289, 410);
+            pnlConfigurations.Size = new Size(298, 410);
             pnlConfigurations.TabIndex = 45;
             pnlConfigurations.WrapContents = false;
             // 
@@ -281,11 +281,11 @@ namespace ConfigurationReader
             tbKeyValue.BorderStyle = BorderStyle.FixedSingle;
             tbKeyValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tbKeyValue.ForeColor = SystemColors.HighlightText;
-            tbKeyValue.Location = new Point(616, 167);
+            tbKeyValue.Location = new Point(617, 167);
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
-            tbKeyValue.Size = new Size(338, 294);
+            tbKeyValue.Size = new Size(337, 294);
             tbKeyValue.TabIndex = 50;
             // 
             // label2

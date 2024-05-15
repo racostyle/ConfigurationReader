@@ -129,17 +129,17 @@ namespace ConfigurationReader
 
         #region ADDING BUTTONS
 
-        private void CreateButtonsForEachConfiguration(FlowLayoutPanel pnlConfigurations)
+        private void CreateButtonsForEachConfiguration(FlowLayoutPanel configPanel)
         {
-            var buttonBuilder = new DarkButtonBuilder(pnlConfigurations.Width - 10, 35, _notificationObject);
+            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35, _notificationObject);
 
-            pnlConfigurations.Controls.Clear();
+            configPanel.Controls.Clear();
             List<DarkButton> buttons = new List<DarkButton>();
             for (int i = 0; i < _loadedConfigurations.Count; i++)
             {
-                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, pnlConfigurations, pnlConfigKeys, tbKeyValue, SetCurrentConfigIndex);
+                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, configPanel, pnlConfigKeys, tbKeyValue, SetCurrentConfigIndex);
                 buttons.Add(btn);
-                pnlConfigurations.Controls.Add(btn);
+                configPanel.Controls.Add(btn);
             }
         }
 

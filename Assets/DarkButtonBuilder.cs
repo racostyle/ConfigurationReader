@@ -12,14 +12,14 @@ namespace ConfigurationReader.Assets
         public DarkButtonBuilder(int buttonWidth, int buttonHeight, NotificationObject notificationObject)
         {
             // -21 for scrollable bar
-            _buttonWidth = buttonWidth - 21;
+            _buttonWidth = buttonWidth - 20;
             _buttonHeight = buttonHeight;
             _notificationObject = notificationObject;
         }
 
-        internal DarkButton Create(ConfigData sConfgData, int index, Panel pnlConfigurations, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
+        internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, FlowLayoutPanel pnlConfigKeys, TextBox tbKeyValue, Action<int> setCurrentIndex)
         {
-            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, pnlConfigurations, 1.3f);
+            DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, configPanel, 1.3f);
 
             some.Click += new EventHandler((sndr, evt) =>
             {
