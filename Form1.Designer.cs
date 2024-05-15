@@ -30,6 +30,7 @@ namespace ConfigurationReader
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             label7 = new Label();
             btnSaveAll = new DarkButton();
             notifySavingPannel = new Panel();
@@ -343,6 +344,7 @@ namespace ConfigurationReader
             Controls.Add(label1);
             Controls.Add(tbBaseFolder);
             ForeColor = Color.Gray;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Configuration Editor";
             ResumeLayout(false);
