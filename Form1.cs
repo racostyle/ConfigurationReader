@@ -9,6 +9,7 @@ namespace ConfigurationReader
         private readonly NotificationObject _notificationObject;
         private List<ConfigData> _loadedConfigurations;
         private int _currentConfigIndex = 0;
+        List<DarkButton> _mainButtons;
 
         private readonly Dictionary<string, string> _settings;
 
@@ -16,6 +17,7 @@ namespace ConfigurationReader
         {
             InitializeComponent();
             AdjustFormsComponents();
+            _mainButtons = new List<DarkButton>();
             _loadedConfigurations = new List<ConfigData>();
             _notificationObject = new NotificationObject();
             _configurationHelper = new ConfigurationHelper(_notificationObject);
@@ -123,11 +125,16 @@ namespace ConfigurationReader
             var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35);
 
             configPanel.Controls.Clear();
-            List<DarkButton> mainButtons = new List<DarkButton>();
+            if (_mainButtons.Count > 0)
+            {
+                foreach (var b in _mainButtons)
+                    b.Dispose();
+                _mainButtons.Clear();
+            }
             for (int i = 0; i < _loadedConfigurations.Count; i++)
             {
-                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, configPanel, this, mainButtons, SetCurrentConfigIndex);
-                mainButtons.Add(btn);
+                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, configPanel, this, _mainButtons, SetCurrentConfigIndex);
+                _mainButtons.Add(btn);
                 configPanel.Controls.Add(btn);
             }
         }

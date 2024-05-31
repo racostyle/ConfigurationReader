@@ -6,71 +6,21 @@ namespace ConfigurationReader.Assets
     {
         private readonly int _buttonWidth;
         private readonly int _buttonHeight;
-        private EventHandler? _textChangedHandler;
 
         public DarkButtonBuilder(int buttonWidth, int buttonHeight)
         {
-            // -21 for scrollable bar
+            // -20 for scrollable bar
             _buttonWidth = buttonWidth - 20;
             _buttonHeight = buttonHeight;
         }
-        //pnlConfigKeys, tbKeyValue, tbSelectedConfig
         internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, Form1 form, List<DarkButton> mainButtons, Action<int> setCurrentIndex)
         {
             DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, configPanel, 1.3f);
-
-            //some.Click += new EventHandler((sndr, evt) =>
-            some.Click += new EventHandler((sndr, evt) =>
-            {
-                if (some.ForeColor == Color.Green)
-                    return;
-                foreach (var b in mainButtons)
-                    b.ForeColor = Color.White;
-                some.ForeColor = Color.Green;
-                List<DarkButton> buttons = new List<DarkButton>();
-                Button clickedButton = (Button)sndr;
-
-                setCurrentIndex?.Invoke(sConfgData.Index);
-                form.pnlConfigKeys.Controls.Clear();
-                int i = 0;
-                foreach (string key in sConfgData.Configuration.Keys)
-                {
-                    string localKey = key;
-
-                    var btn = CreateButton(localKey, i, form.pnlConfigKeys, 1.3f);
-                    btn.Click += new EventHandler((sndr, evt) =>
-                    {
-                        foreach (var b in buttons)
-                            b.ForeColor = Color.White;
-                        btn.ForeColor = Color.Green;
-
-                        string localLocalKey = localKey;
-                        ValuePanelTextChangeHandler(sConfgData, form, localLocalKey);
-                    });
-                    form.pnlConfigKeys.Controls.Add(btn);
-                    buttons.Add(btn);
-                    i++;
-                }
-            });
-
+            _ = new HandlerBuilder(sConfgData, form, mainButtons, setCurrentIndex, some, this);
             return some;
         }
 
-        private void ValuePanelTextChangeHandler(ConfigData sConfgData, Form1 form, string localLocalKey)
-        {
-            if (_textChangedHandler != null)
-                form.tbKeyValue.TextChanged -= _textChangedHandler;
-            _textChangedHandler = (s, e) => TextBoxTextChangedHandler(s, e, sConfgData, localLocalKey);
-            form.tbKeyValue.Text = sConfgData.Configuration[localLocalKey];
-            form.tbKeyValue.TextChanged += _textChangedHandler;
-        }
-
-        private void TextBoxTextChangedHandler(object sender, EventArgs e, ConfigData sConfgData, string localLocalKey)
-        {
-            sConfgData.Configuration[localLocalKey] = ((TextBox)sender).Text;
-        }
-
-        private DarkButton CreateButton(string name, int index, Panel panel, float heightMulti = 1)
+        internal DarkButton CreateButton(string name, int index, Panel panel, float heightMulti = 1)
         {
             float height = _buttonHeight;
             float finalHeight = height * heightMulti;
@@ -106,11 +56,6 @@ namespace ConfigurationReader.Assets
             }
 
             return string.Join("\\", selectedParts);
-        }
-
-        internal class ButtonClickHandlerBuilder
-        {
-
         }
     }
 }
