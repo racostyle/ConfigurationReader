@@ -1,6 +1,7 @@
-﻿using ConfigurationReader.Utilities;
+﻿using ConfigurationReader.Assets;
+using ConfigurationReader.Utilities;
 
-namespace ConfigurationReader.Assets
+namespace ConfigurationReader.Buttons
 {
     internal class DarkButtonBuilder
     {
@@ -16,7 +17,7 @@ namespace ConfigurationReader.Assets
         internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, Form1 form, List<DarkButton> mainButtons, Action<int> setCurrentIndex)
         {
             DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, configPanel, 1.3f);
-            _ = new HandlerBuilder(sConfgData, form, mainButtons, setCurrentIndex, some, this);
+            _ = new HandlerBuilder_ConfigBtn(sConfgData, form, mainButtons, setCurrentIndex, some, this);
             return some;
         }
 

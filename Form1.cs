@@ -1,4 +1,5 @@
 using ConfigurationReader.Assets;
+using ConfigurationReader.Buttons;
 using ConfigurationReader.Utilities;
 
 namespace ConfigurationReader
@@ -9,9 +10,9 @@ namespace ConfigurationReader
         private readonly NotificationObject _notificationObject;
         private List<ConfigData> _loadedConfigurations;
         private int _currentConfigIndex = 0;
-        List<DarkButton> _mainButtons;
-
+        private List<DarkButton> _mainButtons;
         private readonly Dictionary<string, string> _settings;
+        private string _lastLoadLocation = string.Empty;
 
         public Form1()
         {
@@ -92,6 +93,10 @@ namespace ConfigurationReader
         {
             if (string.IsNullOrEmpty(tbBaseFolder.Text))
                 return;
+
+            if (_lastLoadLocation == tbBaseFolder.Text) //just to prevent unnecesarry button creation
+                return;
+            _lastLoadLocation = tbBaseFolder.Text;
 
             ClearAll();
             string[] configLocations = FindConfigurations();
