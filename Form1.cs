@@ -1,6 +1,5 @@
 using ConfigurationReader.Assets;
 using ConfigurationReader.Utilities;
-using System.Drawing.Text;
 
 namespace ConfigurationReader
 {
@@ -18,7 +17,7 @@ namespace ConfigurationReader
             InitializeComponent();
             AdjustFormsComponents();
             _loadedConfigurations = new List<ConfigData>();
-            _notificationObject = new NotificationObject(SetSelectedKeyText);
+            _notificationObject = new NotificationObject();
             _configurationHelper = new ConfigurationHelper(_notificationObject);
             _settings = _configurationHelper.LoadAppsettings();
             ClearAll();
@@ -56,19 +55,9 @@ namespace ConfigurationReader
             SelectComboBoxItem(cbSavedValues);
         }
 
-        private void SetSelectedKeyText(string value)
-        {
-            this.Invoke((MethodInvoker)delegate ()
-            {
-                tbSelectedKey.Text = value;
-            });
-        }
-
         private void ClearAll()
         {
             tbKeyValue.Text = string.Empty;
-            tbSelectedKey.Text = string.Empty;
-            tbSelectedConfig.Text = string.Empty;
             pnlConfigKeys.Controls.Clear();
         }
 
@@ -131,14 +120,14 @@ namespace ConfigurationReader
         #region ADDING BUTTONS
         private void CreateButtonsForEachConfiguration(FlowLayoutPanel configPanel)
         {
-            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35, _notificationObject);
+            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35);
 
             configPanel.Controls.Clear();
-            List<DarkButton> buttons = new List<DarkButton>();
+            List<DarkButton> mainButtons = new List<DarkButton>();
             for (int i = 0; i < _loadedConfigurations.Count; i++)
             {
-                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, configPanel, pnlConfigKeys, tbKeyValue, tbSelectedConfig, SetCurrentConfigIndex);
-                buttons.Add(btn);
+                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, configPanel, this, mainButtons, SetCurrentConfigIndex);
+                mainButtons.Add(btn);
                 configPanel.Controls.Add(btn);
             }
         }

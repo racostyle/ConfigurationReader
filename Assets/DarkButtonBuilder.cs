@@ -6,50 +6,63 @@ namespace ConfigurationReader.Assets
     {
         private readonly int _buttonWidth;
         private readonly int _buttonHeight;
-        private readonly NotificationObject _notificationObject;
         private EventHandler? _textChangedHandler;
 
-        public DarkButtonBuilder(int buttonWidth, int buttonHeight, NotificationObject notificationObject)
+        public DarkButtonBuilder(int buttonWidth, int buttonHeight)
         {
             // -21 for scrollable bar
             _buttonWidth = buttonWidth - 20;
             _buttonHeight = buttonHeight;
-            _notificationObject = notificationObject;
         }
-
-        internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, FlowLayoutPanel pnlConfigKeys, TextBox tbSelectedKey, TextBox tbSelectedConfig, Action<int> setCurrentIndex)
+        //pnlConfigKeys, tbKeyValue, tbSelectedConfig
+        internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, Form1 form, List<DarkButton> mainButtons, Action<int> setCurrentIndex)
         {
             DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, configPanel, 1.3f);
 
+            //some.Click += new EventHandler((sndr, evt) =>
             some.Click += new EventHandler((sndr, evt) =>
             {
+                if (some.ForeColor == Color.Green)
+                    return;
+                foreach (var b in mainButtons)
+                    b.ForeColor = Color.White;
+                some.ForeColor = Color.Green;
+                List<DarkButton> buttons = new List<DarkButton>();
                 Button clickedButton = (Button)sndr;
-                tbSelectedConfig.Text = clickedButton.Text;
 
                 setCurrentIndex?.Invoke(sConfgData.Index);
-                pnlConfigKeys.Controls.Clear();
+                form.pnlConfigKeys.Controls.Clear();
                 int i = 0;
                 foreach (string key in sConfgData.Configuration.Keys)
                 {
                     string localKey = key;
 
-                    var btn = CreateButton(localKey, i, pnlConfigKeys, 1.3f);
+                    var btn = CreateButton(localKey, i, form.pnlConfigKeys, 1.3f);
                     btn.Click += new EventHandler((sndr, evt) =>
                     {
+                        foreach (var b in buttons)
+                            b.ForeColor = Color.White;
+                        btn.ForeColor = Color.Green;
+
                         string localLocalKey = localKey;
-                        _notificationObject.LogSelectedKey(localLocalKey);
-                        if (_textChangedHandler != null)
-                            tbSelectedKey.TextChanged -= _textChangedHandler;
-                        _textChangedHandler = (s, e) => TextBoxTextChangedHandler(s, e, sConfgData, localLocalKey);
-                        tbSelectedKey.Text = sConfgData.Configuration[localLocalKey];
-                        tbSelectedKey.TextChanged += _textChangedHandler;
+                        ValuePanelTextChangeHandler(sConfgData, form, localLocalKey);
                     });
-                    pnlConfigKeys.Controls.Add(btn);
+                    form.pnlConfigKeys.Controls.Add(btn);
+                    buttons.Add(btn);
                     i++;
                 }
             });
 
             return some;
+        }
+
+        private void ValuePanelTextChangeHandler(ConfigData sConfgData, Form1 form, string localLocalKey)
+        {
+            if (_textChangedHandler != null)
+                form.tbKeyValue.TextChanged -= _textChangedHandler;
+            _textChangedHandler = (s, e) => TextBoxTextChangedHandler(s, e, sConfgData, localLocalKey);
+            form.tbKeyValue.Text = sConfgData.Configuration[localLocalKey];
+            form.tbKeyValue.TextChanged += _textChangedHandler;
         }
 
         private void TextBoxTextChangedHandler(object sender, EventArgs e, ConfigData sConfgData, string localLocalKey)
@@ -93,6 +106,11 @@ namespace ConfigurationReader.Assets
             }
 
             return string.Join("\\", selectedParts);
+        }
+
+        internal class ButtonClickHandlerBuilder
+        {
+
         }
     }
 }
