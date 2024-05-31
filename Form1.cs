@@ -150,7 +150,6 @@ namespace ConfigurationReader
         #endregion
 
         #region SAVING CONFIGURATIONS
-
         private void OnBtnSaveCurrent_Click(object sender, EventArgs e)
         {
             if (_loadedConfigurations == null || _loadedConfigurations.Count == 0)
@@ -202,6 +201,8 @@ namespace ConfigurationReader
         private void OnBtnToClipboard_Click(object sender, EventArgs e)
         {
             var value = tbKeyValue.Text;
+            if (string.IsNullOrEmpty(value))
+                return;
             if (_settings.ContainsValue(value))
                 return;
 
