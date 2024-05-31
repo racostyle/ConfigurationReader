@@ -95,7 +95,20 @@ namespace ConfigurationReader
                 return;
 
             if (_lastLoadLocation == tbBaseFolder.Text) //just to prevent unnecesarry button creation
-                return;
+            {
+                DialogResult result = MessageBox.Show(
+                    $"Load configs from the{Environment.NewLine}same location again?", 
+                    "Confirmation", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        break;
+                    case DialogResult.No:
+                        return;
+                }
+            } 
             _lastLoadLocation = tbBaseFolder.Text;
 
             ClearAll();
