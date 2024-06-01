@@ -2,7 +2,7 @@
 
 namespace ConfigurationReader.Buttons
 {
-    internal abstract class ButtonHandler
+    internal abstract class ButtonHandler : IDisposable
     {
         private readonly DarkButton _button;
         protected EventHandler? _onClickHandler;
@@ -23,14 +23,19 @@ namespace ConfigurationReader.Buttons
 
         protected void OnDispose(object? sender, EventArgs e)
         {
-            _onDisposeAction?.Invoke();
-            _button.Click -= _onClickHandler;
-            _button.Disposed -= _onDisposeHandler;
+            Dispose();
         }
 
         internal void AddDisposeAction(Action onDisposeAction)
         {
             _onDisposeAction = onDisposeAction;
+        }
+
+        public void Dispose()
+        {
+            _onDisposeAction?.Invoke();
+            _button.Click -= _onClickHandler;
+            _button.Disposed -= _onDisposeHandler;
         }
     }
 }

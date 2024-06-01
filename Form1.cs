@@ -10,6 +10,7 @@ namespace ConfigurationReader
         private readonly NotificationObject _notificationObject;
         private List<ConfigData> _loadedConfigurations;
         private int _currentConfigIndex = 0;
+        private ToolTip _toolTip;
         private List<DarkButton> _mainButtons;
         private readonly Dictionary<string, string> _settings;
         private string _lastLoadLocation = string.Empty;
@@ -140,7 +141,11 @@ namespace ConfigurationReader
         #region ADDING BUTTONS
         private void CreateButtonsForEachConfiguration(FlowLayoutPanel configPanel)
         {
-            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35);
+            if (_toolTip != null)
+                _toolTip.Dispose();
+            _toolTip = new ToolTip();
+
+            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35, _toolTip);
 
             configPanel.Controls.Clear();
             if (_mainButtons.Count > 0)
