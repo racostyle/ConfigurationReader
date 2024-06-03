@@ -71,10 +71,10 @@ namespace ConfigurationReader
             btnSaveAll.FlatStyle = FlatStyle.Flat;
             btnSaveAll.Font = new Font("Arial", 8F);
             btnSaveAll.ForeColor = Color.Transparent;
-            btnSaveAll.Location = new Point(829, 47);
+            btnSaveAll.Location = new Point(945, 47);
             btnSaveAll.Margin = new Padding(3, 4, 3, 4);
             btnSaveAll.Name = "btnSaveAll";
-            btnSaveAll.Size = new Size(123, 31);
+            btnSaveAll.Size = new Size(149, 31);
             btnSaveAll.TabIndex = 54;
             btnSaveAll.Text = "SAVE ALL";
             btnSaveAll.UseVisualStyleBackColor = false;
@@ -82,9 +82,9 @@ namespace ConfigurationReader
             // 
             // notifySavingPannel
             // 
-            notifySavingPannel.Location = new Point(706, 82);
+            notifySavingPannel.Location = new Point(790, 82);
             notifySavingPannel.Name = "notifySavingPannel";
-            notifySavingPannel.Size = new Size(243, 10);
+            notifySavingPannel.Size = new Size(304, 8);
             notifySavingPannel.TabIndex = 62;
             // 
             // btnSaveCurrent
@@ -95,10 +95,10 @@ namespace ConfigurationReader
             btnSaveCurrent.FlatStyle = FlatStyle.Flat;
             btnSaveCurrent.Font = new Font("Arial", 8F);
             btnSaveCurrent.ForeColor = Color.Transparent;
-            btnSaveCurrent.Location = new Point(703, 47);
+            btnSaveCurrent.Location = new Point(790, 47);
             btnSaveCurrent.Margin = new Padding(3, 4, 3, 4);
             btnSaveCurrent.Name = "btnSaveCurrent";
-            btnSaveCurrent.Size = new Size(121, 31);
+            btnSaveCurrent.Size = new Size(149, 31);
             btnSaveCurrent.TabIndex = 53;
             btnSaveCurrent.Text = "SAVE";
             btnSaveCurrent.UseVisualStyleBackColor = false;
@@ -112,10 +112,10 @@ namespace ConfigurationReader
             btnFindFolder.FlatStyle = FlatStyle.Flat;
             btnFindFolder.Font = new Font("Arial", 8F);
             btnFindFolder.ForeColor = Color.Transparent;
-            btnFindFolder.Location = new Point(703, 10);
+            btnFindFolder.Location = new Point(790, 10);
             btnFindFolder.Margin = new Padding(3, 4, 3, 4);
             btnFindFolder.Name = "btnFindFolder";
-            btnFindFolder.Size = new Size(121, 31);
+            btnFindFolder.Size = new Size(149, 31);
             btnFindFolder.TabIndex = 48;
             btnFindFolder.Text = "Find Folder";
             btnFindFolder.UseVisualStyleBackColor = false;
@@ -129,10 +129,10 @@ namespace ConfigurationReader
             btnLoadConfigs.FlatStyle = FlatStyle.Flat;
             btnLoadConfigs.Font = new Font("Arial", 8F);
             btnLoadConfigs.ForeColor = Color.Transparent;
-            btnLoadConfigs.Location = new Point(829, 10);
+            btnLoadConfigs.Location = new Point(945, 10);
             btnLoadConfigs.Margin = new Padding(3, 4, 3, 4);
             btnLoadConfigs.Name = "btnLoadConfigs";
-            btnLoadConfigs.Size = new Size(123, 31);
+            btnLoadConfigs.Size = new Size(149, 31);
             btnLoadConfigs.TabIndex = 49;
             btnLoadConfigs.Text = "Load Configs";
             btnLoadConfigs.UseVisualStyleBackColor = false;
@@ -161,7 +161,7 @@ namespace ConfigurationReader
             btnExportValue.FlatStyle = FlatStyle.Flat;
             btnExportValue.Font = new Font("Arial", 9F);
             btnExportValue.ForeColor = Color.Transparent;
-            btnExportValue.Location = new Point(624, 467);
+            btnExportValue.Location = new Point(764, 468);
             btnExportValue.Margin = new Padding(3, 4, 3, 4);
             btnExportValue.Name = "btnExportValue";
             btnExportValue.Size = new Size(153, 31);
@@ -178,7 +178,7 @@ namespace ConfigurationReader
             btnImportValue.FlatStyle = FlatStyle.Flat;
             btnImportValue.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
             btnImportValue.ForeColor = Color.Transparent;
-            btnImportValue.Location = new Point(783, 467);
+            btnImportValue.Location = new Point(923, 468);
             btnImportValue.Margin = new Padding(3, 4, 3, 4);
             btnImportValue.Name = "btnImportValue";
             btnImportValue.Size = new Size(158, 31);
@@ -192,7 +192,7 @@ namespace ConfigurationReader
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(617, 88);
+            label5.Location = new Point(757, 92);
             label5.Name = "label5";
             label5.Size = new Size(47, 20);
             label5.TabIndex = 52;
@@ -203,7 +203,7 @@ namespace ConfigurationReader
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(305, 65);
+            label4.Location = new Point(383, 65);
             label4.Name = "label4";
             label4.Size = new Size(42, 20);
             label4.TabIndex = 51;
@@ -217,9 +217,9 @@ namespace ConfigurationReader
             pnlConfigKeys.BorderStyle = BorderStyle.FixedSingle;
             pnlConfigKeys.FlowDirection = FlowDirection.TopDown;
             pnlConfigKeys.ForeColor = Color.Transparent;
-            pnlConfigKeys.Location = new Point(313, 88);
+            pnlConfigKeys.Location = new Point(383, 88);
             pnlConfigKeys.Name = "pnlConfigKeys";
-            pnlConfigKeys.Size = new Size(298, 410);
+            pnlConfigKeys.Size = new Size(368, 410);
             pnlConfigKeys.TabIndex = 47;
             pnlConfigKeys.WrapContents = false;
             // 
@@ -228,7 +228,7 @@ namespace ConfigurationReader
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(12, 65);
+            label3.Location = new Point(12, 66);
             label3.Name = "label3";
             label3.Size = new Size(113, 20);
             label3.TabIndex = 46;
@@ -242,9 +242,9 @@ namespace ConfigurationReader
             pnlConfigurations.BorderStyle = BorderStyle.FixedSingle;
             pnlConfigurations.FlowDirection = FlowDirection.TopDown;
             pnlConfigurations.ForeColor = Color.Transparent;
-            pnlConfigurations.Location = new Point(10, 88);
+            pnlConfigurations.Location = new Point(12, 89);
             pnlConfigurations.Name = "pnlConfigurations";
-            pnlConfigurations.Size = new Size(298, 410);
+            pnlConfigurations.Size = new Size(365, 410);
             pnlConfigurations.TabIndex = 45;
             pnlConfigurations.WrapContents = false;
             // 
@@ -255,7 +255,7 @@ namespace ConfigurationReader
             tbKeyValue.BorderStyle = BorderStyle.FixedSingle;
             tbKeyValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tbKeyValue.ForeColor = SystemColors.HighlightText;
-            tbKeyValue.Location = new Point(617, 111);
+            tbKeyValue.Location = new Point(757, 112);
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
@@ -293,7 +293,7 @@ namespace ConfigurationReader
             tbBaseFolder.ForeColor = SystemColors.HighlightText;
             tbBaseFolder.Location = new Point(116, 12);
             tbBaseFolder.Name = "tbBaseFolder";
-            tbBaseFolder.Size = new Size(581, 25);
+            tbBaseFolder.Size = new Size(657, 25);
             tbBaseFolder.TabIndex = 43;
             tbBaseFolder.Text = "A:\\\\AAAAAAAAAA";
             // 
@@ -302,7 +302,7 @@ namespace ConfigurationReader
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(964, 539);
+            ClientSize = new Size(1106, 539);
             Controls.Add(label7);
             Controls.Add(btnSaveAll);
             Controls.Add(notifySavingPannel);

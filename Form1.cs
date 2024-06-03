@@ -1,6 +1,9 @@
 using ConfigurationReader.Assets;
 using ConfigurationReader.Buttons;
+using ConfigurationReader.Clipboard;
 using ConfigurationReader.Utilities;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Windows.Forms;
 
 namespace ConfigurationReader
 {
@@ -9,24 +12,32 @@ namespace ConfigurationReader
         private readonly ConfigurationHelper _configurationHelper;
         private readonly NotificationObject _notificationObject;
         private readonly LoadedConfigsHandler _loadedConfigs;
-        private ToolTip _toolTip;
+        private readonly ClipboardManager _clipboardManager;
         private List<DarkButton> _mainButtons;
         private readonly Dictionary<string, string> _settings;
-        private string _lastLoadLocation = string.Empty;
+        private string _lastLoadLocation;
         private EventHandler _onValueTbTextChangeHandler;
+
+        private ToolTip? _toolTipMainForm;
 
         public Form1()
         {
             InitializeComponent();
             AdjustFormsComponents();
             _onValueTbTextChangeHandler = OnValueTbTextChangeHandler;
-            _loadedConfigs = new LoadedConfigsHandler(); 
+            _loadedConfigs = new LoadedConfigsHandler();
             _mainButtons = new List<DarkButton>();
             _notificationObject = new NotificationObject();
             _configurationHelper = new ConfigurationHelper(_notificationObject);
             _settings = _configurationHelper.LoadAppsettings();
+            _lastLoadLocation = string.Empty;
+
+            var items = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).Select(x => x.Value).ToArray();
+            _clipboardManager = new ClipboardManager(items);
             ClearAll();
             FillFormElements();
+
+            
         }
 
         #region FORMS
@@ -44,6 +55,7 @@ namespace ConfigurationReader
                     control.BackColor = CustomColors.TEXT_BOX_COLOR;
             }
         }
+
         private void FillFormElements()
         {
             tbBaseFolder.Text = _settings[Stafi.APPSETTINGS_BASE_FOLDER];
@@ -99,9 +111,9 @@ namespace ConfigurationReader
             if (_lastLoadLocation == tbBaseFolder.Text) //just to prevent unnecesarry button creation
             {
                 DialogResult result = MessageBox.Show(
-                    $"Load configs from the{Environment.NewLine}same location again?", 
-                    "Confirmation", 
-                    MessageBoxButtons.YesNo, 
+                    $"Load configs from the{Environment.NewLine}same location again?",
+                    "Confirmation",
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
                 switch (result)
                 {
@@ -110,7 +122,7 @@ namespace ConfigurationReader
                     case DialogResult.No:
                         return;
                 }
-            } 
+            }
             _lastLoadLocation = tbBaseFolder.Text;
 
             ClearAll();
@@ -144,11 +156,11 @@ namespace ConfigurationReader
         #region ADDING BUTTONS
         private void CreateButtonsForEachConfiguration(FlowLayoutPanel configPanel)
         {
-            if (_toolTip != null)
-                _toolTip.Dispose();
-            _toolTip = new ToolTip();
+            if (_toolTipMainForm != null)
+                _toolTipMainForm.Dispose();
+            _toolTipMainForm = new ToolTip();
 
-            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35, _toolTip, _onValueTbTextChangeHandler);
+            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35, _toolTipMainForm);
 
             configPanel.Controls.Clear();
             if (_mainButtons.Count > 0)
@@ -161,9 +173,18 @@ namespace ConfigurationReader
             var loadedConfigs = _loadedConfigs.GetAllConfigurations();
             for (int i = 0; i < loadedConfigs.Count; i++)
             {
-                var btn = buttonBuilder.Create(loadedConfigs[i], i, configPanel, this, _mainButtons, _loadedConfigs);
-                _mainButtons.Add(btn);
-                configPanel.Controls.Add(btn);
+                var button = buttonBuilder.Create(loadedConfigs[i], i, configPanel, this, _mainButtons, _loadedConfigs);
+                _ = new HandlerBuilder_ConfigBtn(
+                    loadedConfigs[i], 
+                    this,
+                    _mainButtons,
+                    _loadedConfigs, 
+                    button,
+                    buttonBuilder, 
+                    _onValueTbTextChangeHandler);
+
+                _mainButtons.Add(button);
+                configPanel.Controls.Add(button);
             }
         }
         #endregion
@@ -244,11 +265,12 @@ namespace ConfigurationReader
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
+            _clipboardManager.Dispose();
             _configurationHelper.SaveConfigurationToFile(_settings, "appsettings.json");
         }
         #endregion
 
-        #region TextChangeHandler
+        #region TEXT CHANGE HANDLER
         private void OnValueTbTextChangeHandler(object? sender, EventArgs e)
         {
             if (sender != null)
