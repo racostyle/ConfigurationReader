@@ -31,16 +31,14 @@ namespace ConfigurationReader
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            label7 = new Label();
             btnSaveAll = new DarkButton();
             notifySavingPannel = new Panel();
             btnSaveCurrent = new DarkButton();
             btnFindFolder = new DarkButton();
             btnLoadConfigs = new DarkButton();
-            cbSavedValues = new DarkComboBox();
             btnExportValue = new DarkButton();
             folderBrowserDialog1 = new FolderBrowserDialog();
-            btnImportValue = new DarkButton();
+            btnShowClipboard = new DarkButton();
             label5 = new Label();
             label4 = new Label();
             pnlConfigKeys = new FlowLayoutPanel();
@@ -51,17 +49,6 @@ namespace ConfigurationReader
             label1 = new Label();
             tbBaseFolder = new DarkTextBox();
             SuspendLayout();
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.ButtonHighlight;
-            label7.Location = new Point(12, 506);
-            label7.Name = "label7";
-            label7.Size = new Size(80, 20);
-            label7.TabIndex = 57;
-            label7.Text = "Clipboard:";
             // 
             // btnSaveAll
             // 
@@ -138,21 +125,6 @@ namespace ConfigurationReader
             btnLoadConfigs.UseVisualStyleBackColor = false;
             btnLoadConfigs.Click += OnLoadConfigurations_Click;
             // 
-            // cbSavedValues
-            // 
-            cbSavedValues.BackColor = Color.Black;
-            cbSavedValues.BorderColor = Color.FromArgb(70, 70, 70);
-            cbSavedValues.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbSavedValues.FlatStyle = FlatStyle.Flat;
-            cbSavedValues.Font = new Font("Arial", 9F);
-            cbSavedValues.ForeColor = Color.White;
-            cbSavedValues.FormattingEnabled = true;
-            cbSavedValues.Location = new Point(98, 505);
-            cbSavedValues.Margin = new Padding(3, 4, 3, 4);
-            cbSavedValues.Name = "cbSavedValues";
-            cbSavedValues.Size = new Size(854, 25);
-            cbSavedValues.TabIndex = 61;
-            // 
             // btnExportValue
             // 
             btnExportValue.BackColor = SystemColors.MenuText;
@@ -161,31 +133,31 @@ namespace ConfigurationReader
             btnExportValue.FlatStyle = FlatStyle.Flat;
             btnExportValue.Font = new Font("Arial", 9F);
             btnExportValue.ForeColor = Color.Transparent;
-            btnExportValue.Location = new Point(764, 468);
+            btnExportValue.Location = new Point(766, 495);
             btnExportValue.Margin = new Padding(3, 4, 3, 4);
             btnExportValue.Name = "btnExportValue";
             btnExportValue.Size = new Size(153, 31);
             btnExportValue.TabIndex = 56;
-            btnExportValue.Text = "To Clipboard ↓";
+            btnExportValue.Text = "Add to Clipboard";
             btnExportValue.UseVisualStyleBackColor = false;
-            btnExportValue.Click += OnBtnToClipboard_Click;
+            btnExportValue.Click += OnClipboard_Click;
             // 
-            // btnImportValue
+            // btnShowClipboard
             // 
-            btnImportValue.BackColor = SystemColors.MenuText;
-            btnImportValue.BorderColor = Color.FromArgb(70, 70, 70);
-            btnImportValue.FlatAppearance.BorderSize = 0;
-            btnImportValue.FlatStyle = FlatStyle.Flat;
-            btnImportValue.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            btnImportValue.ForeColor = Color.Transparent;
-            btnImportValue.Location = new Point(923, 468);
-            btnImportValue.Margin = new Padding(3, 4, 3, 4);
-            btnImportValue.Name = "btnImportValue";
-            btnImportValue.Size = new Size(158, 31);
-            btnImportValue.TabIndex = 55;
-            btnImportValue.Text = "From Clipboard ↑";
-            btnImportValue.UseVisualStyleBackColor = false;
-            btnImportValue.Click += OnBtnFromClipboard_Click;
+            btnShowClipboard.BackColor = SystemColors.MenuText;
+            btnShowClipboard.BorderColor = Color.FromArgb(70, 70, 70);
+            btnShowClipboard.FlatAppearance.BorderSize = 0;
+            btnShowClipboard.FlatStyle = FlatStyle.Flat;
+            btnShowClipboard.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            btnShowClipboard.ForeColor = Color.Transparent;
+            btnShowClipboard.Location = new Point(925, 495);
+            btnShowClipboard.Margin = new Padding(3, 4, 3, 4);
+            btnShowClipboard.Name = "btnImportValue";
+            btnShowClipboard.Size = new Size(158, 31);
+            btnShowClipboard.TabIndex = 55;
+            btnShowClipboard.Text = "Show Clipboard";
+            btnShowClipboard.UseVisualStyleBackColor = false;
+            btnShowClipboard.Click += OnShowClipboard_Click;
             // 
             // label5
             // 
@@ -219,7 +191,7 @@ namespace ConfigurationReader
             pnlConfigKeys.ForeColor = Color.Transparent;
             pnlConfigKeys.Location = new Point(383, 88);
             pnlConfigKeys.Name = "pnlConfigKeys";
-            pnlConfigKeys.Size = new Size(368, 410);
+            pnlConfigKeys.Size = new Size(368, 439);
             pnlConfigKeys.TabIndex = 47;
             pnlConfigKeys.WrapContents = false;
             // 
@@ -244,7 +216,7 @@ namespace ConfigurationReader
             pnlConfigurations.ForeColor = Color.Transparent;
             pnlConfigurations.Location = new Point(12, 89);
             pnlConfigurations.Name = "pnlConfigurations";
-            pnlConfigurations.Size = new Size(365, 410);
+            pnlConfigurations.Size = new Size(365, 438);
             pnlConfigurations.TabIndex = 45;
             pnlConfigurations.WrapContents = false;
             // 
@@ -259,7 +231,7 @@ namespace ConfigurationReader
             tbKeyValue.Multiline = true;
             tbKeyValue.Name = "tbKeyValue";
             tbKeyValue.ScrollBars = ScrollBars.Vertical;
-            tbKeyValue.Size = new Size(337, 349);
+            tbKeyValue.Size = new Size(337, 376);
             tbKeyValue.TabIndex = 50;
             // 
             // label2
@@ -303,15 +275,13 @@ namespace ConfigurationReader
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1106, 539);
-            Controls.Add(label7);
             Controls.Add(btnSaveAll);
             Controls.Add(notifySavingPannel);
             Controls.Add(btnSaveCurrent);
             Controls.Add(btnFindFolder);
             Controls.Add(btnLoadConfigs);
-            Controls.Add(cbSavedValues);
             Controls.Add(btnExportValue);
-            Controls.Add(btnImportValue);
+            Controls.Add(btnShowClipboard);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(pnlConfigKeys);
@@ -330,17 +300,14 @@ namespace ConfigurationReader
         }
 
         #endregion
-
-        private Label label7;
         private DarkButton btnSaveAll;
         private Panel notifySavingPannel;
         private DarkButton btnSaveCurrent;
         private DarkButton btnFindFolder;
         private DarkButton btnLoadConfigs;
-        private DarkComboBox cbSavedValues;
         private DarkButton btnExportValue;
         private FolderBrowserDialog folderBrowserDialog1;
-        private DarkButton btnImportValue;
+        private DarkButton btnShowClipboard;
         private Label label5;
         private Label label4;
         internal FlowLayoutPanel pnlConfigKeys;

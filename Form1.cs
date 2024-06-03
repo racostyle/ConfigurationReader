@@ -2,8 +2,6 @@ using ConfigurationReader.Assets;
 using ConfigurationReader.Buttons;
 using ConfigurationReader.Clipboard;
 using ConfigurationReader.Utilities;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using System.Windows.Forms;
 
 namespace ConfigurationReader
 {
@@ -31,13 +29,9 @@ namespace ConfigurationReader
             _configurationHelper = new ConfigurationHelper(_notificationObject);
             _settings = _configurationHelper.LoadAppsettings();
             _lastLoadLocation = string.Empty;
-
-            var items = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).Select(x => x.Value).ToArray();
-            _clipboardManager = new ClipboardManager(items);
+            _clipboardManager = new ClipboardManager(OnClipboardButtonClick);
             ClearAll();
             FillFormElements();
-
-            
         }
 
         #region FORMS
@@ -59,17 +53,6 @@ namespace ConfigurationReader
         private void FillFormElements()
         {
             tbBaseFolder.Text = _settings[Stafi.APPSETTINGS_BASE_FOLDER];
-            FillSavedValuesComboBox();
-        }
-
-        private void FillSavedValuesComboBox()
-        {
-            cbSavedValues.Items.Clear();
-            var items = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).Select(x => x.Value).ToArray();
-
-            foreach (var item in items)
-                cbSavedValues.Items.Add(item);
-            SelectComboBoxItem(cbSavedValues);
         }
 
         private void ClearAll()
@@ -175,12 +158,12 @@ namespace ConfigurationReader
             {
                 var button = buttonBuilder.Create(loadedConfigs[i], i, configPanel, this, _mainButtons, _loadedConfigs);
                 _ = new HandlerBuilder_ConfigBtn(
-                    loadedConfigs[i], 
+                    loadedConfigs[i],
                     this,
                     _mainButtons,
-                    _loadedConfigs, 
+                    _loadedConfigs,
                     button,
-                    buttonBuilder, 
+                    buttonBuilder,
                     _onValueTbTextChangeHandler);
 
                 _mainButtons.Add(button);
@@ -232,13 +215,16 @@ namespace ConfigurationReader
         }
         #endregion
 
-        #region IMPORT & EXPORT SETTINGS
-        private void OnBtnFromClipboard_Click(object sender, EventArgs e)
+        #region CLIPBOARD
+        private void OnShowClipboard_Click(object sender, EventArgs e)
         {
-            tbKeyValue.Text = cbSavedValues.Text;
+            if (_clipboardManager.IsFormActive())
+                return;
+            var items = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).Select(x => x.Value).ToArray();
+            _clipboardManager.Initialize(items);
         }
 
-        private void OnBtnToClipboard_Click(object sender, EventArgs e)
+        private void OnClipboard_Click(object sender, EventArgs e)
         {
             var value = tbKeyValue.Text;
             if (string.IsNullOrEmpty(value))
@@ -249,7 +235,7 @@ namespace ConfigurationReader
             int index = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).ToDictionary().Count;
             var key = $"{Stafi.VALUES_REGION_NAME}:{Stafi.VALUES_NAME}{index}";
             _settings.Add(key, value);
-            FillSavedValuesComboBox();
+            _clipboardManager.AddNewButton(value);
         }
         #endregion
 
@@ -268,15 +254,17 @@ namespace ConfigurationReader
             _clipboardManager.Dispose();
             _configurationHelper.SaveConfigurationToFile(_settings, "appsettings.json");
         }
-        #endregion
 
-        #region TEXT CHANGE HANDLER
         private void OnValueTbTextChangeHandler(object? sender, EventArgs e)
         {
             if (sender != null)
                 _loadedConfigs.Change(((TextBox)sender).Text);
         }
 
+        private void OnClipboardButtonClick(string text)
+        {
+            this.tbKeyValue.Text = text;
+        }
         #endregion
     }
 }
