@@ -54,6 +54,7 @@ namespace ConfigurationReader.Utilities
         internal void Change(string text)
         {
             if (CurrentConfig == null) return;
+            if (string.IsNullOrEmpty(CurrentKey)) return;
             CurrentConfig.Configuration[CurrentKey] = text;
         }
 
