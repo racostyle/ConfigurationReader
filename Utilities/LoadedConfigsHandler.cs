@@ -48,6 +48,7 @@ namespace ConfigurationReader.Utilities
         {
             _currentConfigIndex = sConfgData.Index;
             CurrentConfig = sConfgData;
+            CurrentKey = string.Empty;
         }
 
         internal void Change(string text)
