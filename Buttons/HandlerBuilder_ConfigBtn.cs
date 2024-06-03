@@ -1,5 +1,6 @@
 ﻿using ConfigurationReader.Assets;
 using ConfigurationReader.Utilities;
+using System.Windows.Forms;
 
 namespace ConfigurationReader.Buttons
 {
@@ -8,32 +9,36 @@ namespace ConfigurationReader.Buttons
         private readonly DarkButtonBuilder _darkButtonBuilder;
         private readonly List<DarkButton> _buttons;
         private readonly Form1 _form;
+        private readonly LoadedConfigsHandler _loadedConfigs;
         private readonly DarkButton _button;
-        private EventHandler? _textChangedHandler;
+        private readonly EventHandler _textChangedHandler;
+        private readonly object _lock = new object();
         //bull
 
-        public HandlerBuilder_ConfigBtn(ConfigData sConfgData, Form1 form, List<DarkButton> mainButtons, Action<int> setCurrentIndex, DarkButton button, DarkButtonBuilder darkButtonBuilder)
+        public HandlerBuilder_ConfigBtn(ConfigData sConfgData, Form1 form, List<DarkButton> mainButtons, LoadedConfigsHandler loadedConfigs, DarkButton button, DarkButtonBuilder darkButtonBuilder, EventHandler onTbValueTextChangeHandler)
         : base(button)
         {
             _buttons = new List<DarkButton>();
             _darkButtonBuilder = darkButtonBuilder;
             _form = form;
+            _loadedConfigs = loadedConfigs;
             _button = button;
-            _onClickHandler = (s, e) => OnClickHandler(s, e, sConfgData, mainButtons, setCurrentIndex);
+            _onClickHandler = (s, e) => OnClickHandler(s, e, sConfgData, mainButtons, _loadedConfigs);
+            _textChangedHandler = onTbValueTextChangeHandler;
             base.SubscribeHandlers();
         }
 
-        private void OnClickHandler(object sender, EventArgs e, ConfigData sConfgData, List<DarkButton> mainButtons, Action<int> setCurrentIndex)
+        private void OnClickHandler(object sender, EventArgs e, ConfigData sConfgData, List<DarkButton> mainButtons, LoadedConfigsHandler loadedConfigs)
         {
             if (_button.ForeColor == Color.Green)
                 return;
+            ChangeValueTextWithoutTrigger(string.Empty);
             foreach (var b in mainButtons)
                 b.ForeColor = Color.White;
             _button.ForeColor = Color.Green;
-
             Button clickedButton = (Button)sender;
 
-            setCurrentIndex?.Invoke(sConfgData.Index);
+            loadedConfigs.SetCurrentConfig(sConfgData);
             _form.pnlConfigKeys.Controls.Clear();
             int i = 0;
             foreach (string key in sConfgData.Configuration.Keys)
@@ -41,24 +46,24 @@ namespace ConfigurationReader.Buttons
                 string localKey = key;
                 int localIndex = i;
                 var btn = _darkButtonBuilder.CreateButton(localKey, localIndex, _form.pnlConfigKeys, 1.3f);
-                _ = new HandlerBuilder_ValueBtn(_textChangedHandler, btn, _buttons, _form, sConfgData, ValuePanelTextChangeHandler);
+                _ = new HandlerBuilder_KeysBtn(btn, _buttons, _form, sConfgData, _loadedConfigs, ChangeValueTextWithoutTrigger);
                 i++;
             }
             base.AddDisposeAction(OnDisposeAction);
         }
 
-        private void ValuePanelTextChangeHandler(ConfigData sConfgData, Form1 form, string _localKey)
+        private void ChangeValueTextWithoutTrigger(string text)
         {
-            if (_textChangedHandler != null)
-                form.tbKeyValue.TextChanged -= _textChangedHandler;
-            _textChangedHandler = (s, e) => TextBoxTextChangedHandler(s, e, sConfgData, _localKey);
-            form.tbKeyValue.Text = sConfgData.Configuration[_localKey];
-            form.tbKeyValue.TextChanged += _textChangedHandler;
-        }
-
-        private void TextBoxTextChangedHandler(object sender, EventArgs e, ConfigData sConfgData, string localKey)
-        {
-            sConfgData.Configuration[localKey] = ((TextBox)sender).Text;
+            lock (_lock)
+            {
+                if (_textChangedHandler != null)
+                {
+                    _form.tbKeyValue.TextChanged -= _textChangedHandler;
+                    _form.tbKeyValue.Text = text;
+                    _form.tbKeyValue.Update();
+                    _form.tbKeyValue.TextChanged += _textChangedHandler;
+                }
+            }
         }
 
         private void OnDisposeAction()

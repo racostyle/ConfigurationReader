@@ -8,19 +8,20 @@ namespace ConfigurationReader
     {
         private readonly ConfigurationHelper _configurationHelper;
         private readonly NotificationObject _notificationObject;
-        private List<ConfigData> _loadedConfigurations;
-        private int _currentConfigIndex = 0;
+        private readonly LoadedConfigsHandler _loadedConfigs;
         private ToolTip _toolTip;
         private List<DarkButton> _mainButtons;
         private readonly Dictionary<string, string> _settings;
         private string _lastLoadLocation = string.Empty;
+        private EventHandler _onValueTbTextChangeHandler;
 
         public Form1()
         {
             InitializeComponent();
             AdjustFormsComponents();
+            _onValueTbTextChangeHandler = OnValueTbTextChangeHandler;
+            _loadedConfigs = new LoadedConfigsHandler(); 
             _mainButtons = new List<DarkButton>();
-            _loadedConfigurations = new List<ConfigData>();
             _notificationObject = new NotificationObject();
             _configurationHelper = new ConfigurationHelper(_notificationObject);
             _settings = _configurationHelper.LoadAppsettings();
@@ -94,7 +95,7 @@ namespace ConfigurationReader
         {
             if (string.IsNullOrEmpty(tbBaseFolder.Text))
                 return;
-
+            tbKeyValue.TextChanged -= _onValueTbTextChangeHandler;
             if (_lastLoadLocation == tbBaseFolder.Text) //just to prevent unnecesarry button creation
             {
                 DialogResult result = MessageBox.Show(
@@ -127,14 +128,16 @@ namespace ConfigurationReader
 
         private void CreateConfigObjects(string[] configLocations)
         {
-            _loadedConfigurations.Clear();
+            _loadedConfigs.Clear();
+            List<ConfigData> configs = new List<ConfigData>();
             for (int i = 0; i < configLocations.Length; i++)
             {
                 var configDict = _configurationHelper.LoadConfigurationFromFile(configLocations[i]);
                 if (configDict == null)
                     continue;
-                _loadedConfigurations.Add(new ConfigData(i, configLocations[i], configDict));
+                configs.Add(new ConfigData(i, configLocations[i], configDict));
             }
+            _loadedConfigs.Set(configs);
         }
         #endregion
 
@@ -145,7 +148,7 @@ namespace ConfigurationReader
                 _toolTip.Dispose();
             _toolTip = new ToolTip();
 
-            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35, _toolTip);
+            var buttonBuilder = new DarkButtonBuilder(configPanel.Width - 10, 35, _toolTip, _onValueTbTextChangeHandler);
 
             configPanel.Controls.Clear();
             if (_mainButtons.Count > 0)
@@ -154,28 +157,25 @@ namespace ConfigurationReader
                     b.Dispose();
                 _mainButtons.Clear();
             }
-            for (int i = 0; i < _loadedConfigurations.Count; i++)
+
+            var loadedConfigs = _loadedConfigs.GetAllConfigurations();
+            for (int i = 0; i < loadedConfigs.Count; i++)
             {
-                var btn = buttonBuilder.Create(_loadedConfigurations[i], i, configPanel, this, _mainButtons, SetCurrentConfigIndex);
+                var btn = buttonBuilder.Create(loadedConfigs[i], i, configPanel, this, _mainButtons, _loadedConfigs);
                 _mainButtons.Add(btn);
                 configPanel.Controls.Add(btn);
             }
-        }
-
-        private void SetCurrentConfigIndex(int i)
-        {
-            _currentConfigIndex = i;
         }
         #endregion
 
         #region SAVING CONFIGURATIONS
         private void OnBtnSaveCurrent_Click(object sender, EventArgs e)
         {
-            if (_loadedConfigurations == null || _loadedConfigurations.Count == 0)
+            if (!_loadedConfigs.IsNotNullOrEmpty())
                 return;
 
-            var path = _loadedConfigurations[_currentConfigIndex].FullName;
-            var config = _loadedConfigurations[_currentConfigIndex].Configuration;
+            var path = _loadedConfigs.GetPathToCurrentConfig();
+            var config = _loadedConfigs.GetCurrentConfiguration();
             var result = _configurationHelper.SaveConfigurationToFile(config, path);
 
             if (result)
@@ -184,11 +184,11 @@ namespace ConfigurationReader
 
         private void OnBtnSaveAll_Click(object sender, EventArgs e)
         {
-            if (_loadedConfigurations == null || _loadedConfigurations.Count == 0)
+            if (!_loadedConfigs.IsNotNullOrEmpty())
                 return;
 
             List<bool> results = new List<bool>();
-            foreach (var config in _loadedConfigurations)
+            foreach (var config in _loadedConfigs.GetAllConfigurations())
             {
                 var path = config.FullName;
                 var result = _configurationHelper.SaveConfigurationToFile(config.Configuration, path);
@@ -246,6 +246,15 @@ namespace ConfigurationReader
             base.OnFormClosing(e);
             _configurationHelper.SaveConfigurationToFile(_settings, "appsettings.json");
         }
+        #endregion
+
+        #region TextChangeHandler
+        private void OnValueTbTextChangeHandler(object? sender, EventArgs e)
+        {
+            if (sender != null)
+                _loadedConfigs.Change(((TextBox)sender).Text);
+        }
+
         #endregion
     }
 }

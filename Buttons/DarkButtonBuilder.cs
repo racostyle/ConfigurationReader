@@ -8,17 +8,19 @@ namespace ConfigurationReader.Buttons
         private readonly int _buttonWidth;
         private readonly int _buttonHeight;
         private readonly ToolTip _toolTip;
+        private readonly EventHandler _onValueTbTextChangeHandler;
 
-        public DarkButtonBuilder(int buttonWidth, int buttonHeight, ToolTip toolTip)
+        public DarkButtonBuilder(int buttonWidth, int buttonHeight, ToolTip toolTip, EventHandler _onValueTbTextChangeHandler)
         {
             _buttonWidth = buttonWidth - 20;
             _buttonHeight = buttonHeight;
             _toolTip = toolTip;
+            this._onValueTbTextChangeHandler = _onValueTbTextChangeHandler;
         }
-        internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, Form1 form, List<DarkButton> mainButtons, Action<int> setCurrentIndex)
+        internal DarkButton Create(ConfigData sConfgData, int index, Panel configPanel, Form1 form, List<DarkButton> mainButtons, LoadedConfigsHandler loadedConfigs)
         {
             DarkButton some = CreateButton(FilterButtonName(sConfgData.FullName, 3), index, configPanel, 1.3f);
-            _ = new HandlerBuilder_ConfigBtn(sConfgData, form, mainButtons, setCurrentIndex, some, this);
+            _ = new HandlerBuilder_ConfigBtn(sConfgData, form, mainButtons, loadedConfigs, some, this, _onValueTbTextChangeHandler);
             return some;
         }
 
