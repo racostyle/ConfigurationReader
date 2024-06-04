@@ -41,7 +41,7 @@
             pnlValues.ForeColor = Color.Transparent;
             pnlValues.Location = new Point(12, 12);
             pnlValues.Name = "pnlValues";
-            pnlValues.Size = new Size(578, 426);
+            pnlValues.Size = new Size(578, 438);
             pnlValues.TabIndex = 46;
             pnlValues.WrapContents = false;
             // 
@@ -49,7 +49,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(602, 450);
+            ClientSize = new Size(602, 462);
             Controls.Add(pnlValues);
             Name = "ClipboardForm";
             Text = "Clipboard";

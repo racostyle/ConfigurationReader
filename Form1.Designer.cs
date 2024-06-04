@@ -48,6 +48,7 @@ namespace ConfigurationReader
             label2 = new Label();
             label1 = new Label();
             tbBaseFolder = new DarkTextBox();
+            btnEditClipboardValues = new DarkButton();
             SuspendLayout();
             // 
             // btnSaveAll
@@ -152,7 +153,7 @@ namespace ConfigurationReader
             btnShowClipboard.ForeColor = Color.Transparent;
             btnShowClipboard.Location = new Point(925, 495);
             btnShowClipboard.Margin = new Padding(3, 4, 3, 4);
-            btnShowClipboard.Name = "btnImportValue";
+            btnShowClipboard.Name = "btnShowClipboard";
             btnShowClipboard.Size = new Size(158, 31);
             btnShowClipboard.TabIndex = 55;
             btnShowClipboard.Text = "Show Clipboard";
@@ -191,7 +192,7 @@ namespace ConfigurationReader
             pnlConfigKeys.ForeColor = Color.Transparent;
             pnlConfigKeys.Location = new Point(383, 88);
             pnlConfigKeys.Name = "pnlConfigKeys";
-            pnlConfigKeys.Size = new Size(368, 439);
+            pnlConfigKeys.Size = new Size(368, 474);
             pnlConfigKeys.TabIndex = 47;
             pnlConfigKeys.WrapContents = false;
             // 
@@ -216,7 +217,7 @@ namespace ConfigurationReader
             pnlConfigurations.ForeColor = Color.Transparent;
             pnlConfigurations.Location = new Point(12, 89);
             pnlConfigurations.Name = "pnlConfigurations";
-            pnlConfigurations.Size = new Size(365, 438);
+            pnlConfigurations.Size = new Size(365, 473);
             pnlConfigurations.TabIndex = 45;
             pnlConfigurations.WrapContents = false;
             // 
@@ -269,12 +270,29 @@ namespace ConfigurationReader
             tbBaseFolder.TabIndex = 43;
             tbBaseFolder.Text = "A:\\\\AAAAAAAAAA";
             // 
+            // btnEditClipboardValues
+            // 
+            btnEditClipboardValues.BackColor = Color.Black;
+            btnEditClipboardValues.BorderColor = Color.FromArgb(70, 70, 70);
+            btnEditClipboardValues.FlatAppearance.BorderSize = 0;
+            btnEditClipboardValues.FlatStyle = FlatStyle.Flat;
+            btnEditClipboardValues.Font = new Font("Arial", 8F);
+            btnEditClipboardValues.ForeColor = Color.White;
+            btnEditClipboardValues.Location = new Point(766, 533);
+            btnEditClipboardValues.Name = "btnEditClipboardValues";
+            btnEditClipboardValues.Size = new Size(317, 29);
+            btnEditClipboardValues.TabIndex = 63;
+            btnEditClipboardValues.Text = "Edit clipboard values";
+            btnEditClipboardValues.UseVisualStyleBackColor = false;
+            btnEditClipboardValues.Click += OnChangeSavedClipboardValues_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(1106, 539);
+            ClientSize = new Size(1106, 574);
+            Controls.Add(btnEditClipboardValues);
             Controls.Add(btnSaveAll);
             Controls.Add(notifySavingPannel);
             Controls.Add(btnSaveCurrent);
@@ -317,5 +335,6 @@ namespace ConfigurationReader
         private Label label2;
         private Label label1;
         private DarkTextBox tbBaseFolder;
+        private DarkButton btnEditClipboardValues;
     }
 }

@@ -2,6 +2,7 @@ using ConfigurationReader.Assets;
 using ConfigurationReader.Buttons;
 using ConfigurationReader.Clipboard;
 using ConfigurationReader.Utilities;
+using System.Diagnostics;
 
 namespace ConfigurationReader
 {
@@ -264,6 +265,14 @@ namespace ConfigurationReader
         private void OnClipboardButtonClick(string text)
         {
             this.tbKeyValue.Text = text;
+        }
+
+        private void OnChangeSavedClipboardValues_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+            string[] configLocations = { Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json") };
+            CreateConfigObjects(configLocations);
+            CreateButtonsForEachConfiguration(pnlConfigurations);
         }
         #endregion
     }

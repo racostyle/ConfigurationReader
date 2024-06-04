@@ -1,6 +1,5 @@
 ﻿using ConfigurationReader.Assets;
 using ConfigurationReader.Buttons;
-using System.Runtime.CompilerServices;
 
 namespace ConfigurationReader.Clipboard
 {
@@ -63,7 +62,7 @@ namespace ConfigurationReader.Clipboard
 
         internal bool IsFormActive()
         {
-            return _clipboardForm != null ? true : false;
+            return _clipboardForm == null ? false : _clipboardForm.IsActive;
         }
     }
 }

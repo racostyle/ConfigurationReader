@@ -1,13 +1,14 @@
 ﻿using ConfigurationReader.Assets;
 using ConfigurationReader.Utilities;
-using System.Runtime;
 
 namespace ConfigurationReader
 {
     public partial class ClipboardForm : Form
     {
+        internal bool IsActive { get; private set; }
         public ClipboardForm()
         {
+            IsActive = true;
             InitializeComponent();
             AdjustFormsComponents();
         }
@@ -22,6 +23,12 @@ namespace ConfigurationReader
                 if (control.Name.StartsWith("pnl"))
                     control.BackColor = CustomColors.PANEL_COLOR;
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            IsActive = false;
         }
     }
 }
