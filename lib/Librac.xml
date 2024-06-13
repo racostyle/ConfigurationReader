@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Librac</name>
+    </assembly>
+    <members>
+        <member name="T:Librac.ConfigurationsLib.Configurations">
+            <summary>
+            Provides methods for loading and saving configuration settings to and from a file.
+            </summary>
+        </member>
+        <member name="M:Librac.ConfigurationsLib.Configurations.LoadConfiguration(System.String)">
+            <summary>
+            Loads configuration settings from a specified file.
+            </summary>
+            <param name="fullFileName">The path to the configuration file from which to load settings.</param>
+            <returns>
+            A dictionary containing configuration settings if the file exists and is properly formatted;
+            otherwise, null if the file does not exist or an error occurs during loading.
+            </returns>
+        </member>
+        <member name="M:Librac.ConfigurationsLib.Configurations.SaveConfiguration(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Saves configuration settings to a specified file.
+            </summary>
+            <param name="dictionary">A dictionary containing the configuration settings to save.</param>
+            <param name="fullFileName">The path to the configuration file where the settings should be saved.</param>
+            <remarks>
+            This method writes the configuration settings from the provided dictionary to the file specified by <paramref name="fullFileName"/>.
+            If the file does not exist, it will be created; if it does exist, it will be overwritten.
+            </remarks>
+        </member>
+        <member name="T:Librac.DotnetLib.Dotnet">
+            <summary>
+            Class for executing dll assembly
+            </summary>
+        </member>
+        <member name="M:Librac.DotnetLib.Dotnet.Run_ExecuteAssemblyAsync(System.String,System.Boolean,System.Boolean,System.String,System.Action)">
+            <summary>
+            Asynchronously executes an assembly with specified arguments and configuration, and invokes a callback upon completion.
+            </summary>
+            <param name="assemblyPath">The file path of the assembly to execute.</param>
+            <param name="hideWindow">If set to true, the execution window is hidden; otherwise, it's visible.</param>
+            <param name="runAsAdmin">If set to true, the assembly is executed with administrative privileges.</param>
+            <param name="args">Command-line arguments to pass to the assembly.</param>
+            <param name="callback">An optional callback action to invoke when the process exits.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+            <remarks>
+            The method sets up a process to run the specified assembly according to the given parameters and manages process output and error streams if <paramref name="hideWindow"/> is true.
+            The process is disposed after execution completes, and the specified callback, if provided, is invoked.
+            This method handles process output asynchronously and uses a TaskCompletionSource to await the process exit.
+            </remarks>
+        </member>
+        <member name="M:Librac.DotnetLib.Dotnet.Run_LaunchAssemblySimple(System.String,System.String,System.Action)">
+            <summary>
+            Starts a .NET assembly as an ongoing process, returns the Process object for internal management, captures output and error streams, 
+            and allows for an optional callback on process exit.
+            </summary>
+            <param name="assemblyPath">The path to the .NET assembly (.dll or .exe) to be executed.</param>
+            <param name="args">Optional arguments to pass to the assembly. Defaults to an empty string if no arguments are provided.</param>
+            <param name="callback">An optional callback action that is invoked when the process exits. Can be <c>null</c>, in which case no action is taken on 
+            process exit.</param>
+            <returns>The started <see cref="T:System.Diagnostics.Process"/> object, allowing the caller to control and monitor the process's execution and lifecycle.</returns>
+        </member>
+        <member name="M:Librac.DotnetLib.Dotnet.Run_LaunchAssembly(System.String,System.Boolean,System.Boolean,System.String,System.Action)">
+            <summary>
+            Initiates a .NET assembly as a separate process with configurable window visibility and administrator privileges, returns process 
+            ID and start time, supports asynchronous output/error stream capture, and ensures automatic process cleanup.
+            </summary>
+            <param name="assemblyPath">The path to the .NET assembly (.dll or .exe) to be executed.</param>
+            <param name="hideWindow">Determines whether the window of the separate process should be hidden. Set to <c>false</c> to show the window and <c>true</c> to hide it, enabling asynchronous capture of output and error streams.</param>
+            <param name="runAsAdmin">Specifies whether the process should be run with administrator privileges. Set to <c>true</c> to enable administrator mode.</param>
+            <param name="infoSaveLocation">Optional. The file path where the process information (e.g., process ID and start time) will be saved. If left empty, the information is not saved.</param>
+            <param name="callback">An optional callback action to invoke when the process exits.</param>
+            <returns>An array containing the process ID and start time as strings. The first element is the process ID, and the second element is the start time.</returns>
+        </member>
+        <member name="T:Librac.FileHandlingLib.FileHandling">
+            <summary>
+            LIbrary for dealing with files
+            </summary>
+        </member>
+        <member name="M:Librac.FileHandlingLib.FileHandling.ApplyReadOnlyToDirectory(System.String)">
+            <summary>
+            Sets the ReadOnly attribute to all files in the specified directory and its subdirectories.
+            </summary>
+            <param name="directoryPath">The path to the directory.</param>
+        </member>
+        <member name="M:Librac.FileHandlingLib.FileHandling.RemoveReadOnlyFromDirectory(System.String)">
+            <summary>
+            Removes the ReadOnly attribute from all files in the specified directory and its subdirectories.
+            </summary>
+            <param name="directoryPath">The path to the directory.</param>
+        </member>
+        <member name="M:Librac.FileHandlingLib.FileHandling.CopyFileTo(System.String,System.String,System.Boolean)">
+            <summary>
+            Copies a file to a specified destination, with an option to overwrite the existing destination file.
+            </summary>
+            <param name="fileFullName">The full path of the file to copy.</param>
+            <param name="destinationFullName">The full path of the destination where the file will be copied.</param>
+            <param name="overwrite">A boolean indicating whether to overwrite the destination file if it already exists.</param>
+            <remarks>
+            If the source file does not exist, the method returns without performing any action.
+            The method attempts to copy the file and will overwrite the destination if the 'overwrite' parameter is true.
+            This method prints to the console whether the file was copied successfully or if an error occurred.
+            </remarks>
+        </member>
+        <member name="M:Librac.FileHandlingLib.FileHandling.MoveFileTo(System.String,System.String,System.Boolean)">
+            <summary>
+            Moves a file to a specified destination, optionally overwriting the destination file.
+            </summary>
+            <param name="fileFullName">The full path of the file to move.</param>
+            <param name="destinationFullName">The full path of the destination where the file will be moved.</param>
+            <param name="overwrite">A boolean indicating whether to overwrite the destination file if it already exists.</param>
+            <remarks>
+            If the source file does not exist, the method returns without performing any action. 
+            If the 'overwrite' parameter is true and the destination file exists, the destination file will be deleted prior to moving.
+            This method prints to the console whether the file was moved successfully or if an error occurred.
+            </remarks>
+        </member>
+        <member name="M:Librac.FileHandlingLib.FileHandling.FindAndCopyFileToWorkingDirectory(System.String,System.String,System.Boolean)">
+            <summary>
+            Locates a specified file within a given path and copies it to the working directory. If the file is not found in the specified path, 
+            the search will proceed up the directory tree recursively. The search is optionally  limited to a directory named after the executing assembly.
+            </summary>
+            <param name="path">The directory path where the file search begins.</param>
+            <param name="fileName">The name of the file to search for and copy.</param>
+            <param name="limitScopeToProject">Optional. Limits the search scope to the directory named after the current executing assembly's name. Default is true.</param>
+        </member>
+        <member name="T:Librac.ProcessHandlerLib.ProcessHandler">
+            <summary>
+            Class for closing procesess
+            </summary>
+        </member>
+        <member name="M:Librac.ProcessHandlerLib.ProcessHandler.KillProcess_ByName(System.String[])">
+            <summary>
+            Generates a PowerShell command to forcefully terminate processes by name, allowing for inclusion (name matches) and exclusion (name does not match prefixed with "!") criteria. 
+            After Runs a powershell script and executes said command. It will kill all proceses which respect naming conditions
+            <para>
+            Example of arguments: ("test", "!production") will generate a script that kills all processes that contain "test" but do not contain "production"
+            </para>
+            </summary> 
+        </member>
+        <member name="M:Librac.ProcessHandlerLib.ProcessHandler.KillProcess_ByPIDAndTimeCreated(System.String)">
+            <summary>
+            Will search trough all opened procesess and kill a process with PID and TimeCreated saved in <paramref name="fullFileName"/> .txt file if processs has same 
+            PID and TimeCreated
+            </summary>
+        </member>
+        <member name="M:Librac.ProcessHandlerLib.ProcessHandler.SaveProcessInfo(System.Diagnostics.Process,System.String)">
+            <summary>
+            Saves the ID and start time of a specified process to a file.
+            </summary>
+            <param name="process">The process whose information is to be saved.</param>
+            <param name="fullFileName">The full path and name of the file where the process information will be saved.</param>
+            <remarks>
+            If the provided filename is null or empty, the method will exit without performing any action.
+            The process ID and start time are saved in the format "ID|Start Time".
+            </remarks>
+        </member>
+        <member name="M:Librac.ProcessHandlerLib.ProcessHandler.KillDotnetProcess_ByFullNameFilter(System.String)">
+            <summary>
+            Terminates .NET processes whose full name or command line contains a specified filter string.
+            </summary>
+            <param name="filter">A string filter used to match against the process's full name or command line. 
+            Only processes that contain this string in their full name or command line will be terminated.</param>
+        </member>
+        <member name="M:Librac.ProcessHandlerLib.ProcessHandlerMethods.GenerateDeleteProcesesByNameCommand(System.String[])">
+            <summary>
+            Generates a PowerShell command to forcefully terminate processes by name, allowing for inclusion (name matches) and exclusion (name does not match prefixed with "!") criteria.
+            <para>
+            Example of arguments: ("test", "!production") will generate a script that kills all processes that contain "test" but do not contain "production"
+            </para>
+            </summary> 
+        </member>
+    </members>
+</doc>

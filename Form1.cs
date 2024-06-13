@@ -2,12 +2,13 @@ using ConfigurationReader.Assets;
 using ConfigurationReader.Buttons;
 using ConfigurationReader.Clipboard;
 using ConfigurationReader.Utilities;
-using System.Diagnostics;
 
 namespace ConfigurationReader
 {
     public partial class Form1 : Form
     {
+        private const double MAX_FILE_SIZE_BY_BYTES = 30720;  //30Kb
+
         private readonly ConfigurationHelper _configurationHelper;
         private readonly NotificationObject _notificationObject;
         private readonly LoadedConfigsHandler _loadedConfigs;
@@ -128,7 +129,12 @@ namespace ConfigurationReader
             List<ConfigData> configs = new List<ConfigData>();
             for (int i = 0; i < configLocations.Length; i++)
             {
-                var configDict = _configurationHelper.LoadConfigurationFromFile(configLocations[i]);
+                var location = configLocations[i];
+                var fileSIze = new FileInfo(location).Length;
+                if (fileSIze >= MAX_FILE_SIZE_BY_BYTES) //prevent to large files being loaded since it cant be loaded into gui
+                    continue;
+
+                var configDict = _configurationHelper.LoadConfigurationFromFile(location);
                 if (configDict == null)
                     continue;
                 configs.Add(new ConfigData(i, configLocations[i], configDict));
@@ -155,6 +161,9 @@ namespace ConfigurationReader
             }
 
             var loadedConfigs = _loadedConfigs.GetAllConfigurations();
+            if (loadedConfigs == null)
+                return;
+
             for (int i = 0; i < loadedConfigs.Count; i++)
             {
                 var button = buttonBuilder.Create(loadedConfigs[i], i, configPanel, this, _mainButtons, _loadedConfigs);

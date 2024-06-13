@@ -22,12 +22,24 @@ namespace ConfigurationReader.Clipboard
             _clipboardForm = new ClipboardForm();
             if (_toolTipClipboard != null)
                 _toolTipClipboard.Dispose();
-            _toolTipClipboard = new ToolTip();
-            _darkButtons.Clear();
-            var builder = CreateButtonBuilder();
-            foreach (var value in values)
-                CreateNewButton(value, builder);
+            if (AreAnyValues(values))
+            {
+                _toolTipClipboard = new ToolTip();
+                _darkButtons.Clear();
+                var builder = CreateButtonBuilder();
+                foreach (var value in values)
+                    CreateNewButton(value, builder);
+            }
             _clipboardForm.Show();
+        }
+
+        private bool AreAnyValues(string[] values)
+        {
+            if (values == null)
+                return false;
+            if (values.Count() == 0)
+                return false;
+            return true;
         }
 
         internal void AddNewButton(string value)
