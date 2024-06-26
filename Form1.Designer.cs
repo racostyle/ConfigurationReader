@@ -141,7 +141,7 @@ namespace ConfigurationReader
             btnExportValue.TabIndex = 56;
             btnExportValue.Text = "Add to Clipboard";
             btnExportValue.UseVisualStyleBackColor = false;
-            btnExportValue.Click += OnClipboard_Click;
+            btnExportValue.Click += OnAddToClipboard_Click;
             // 
             // btnShowClipboard
             // 

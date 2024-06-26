@@ -6,7 +6,7 @@ namespace ConfigurationReader.Clipboard
     internal class ClipboardManager
     {
         private readonly Action<string> _tbValueTextAction;
-        private ClipboardForm _clipboardForm;
+        internal ClipboardForm ClipboardForm { get; private set; }
         private ToolTip _toolTipClipboard;
         private List<DarkButton> _darkButtons;
 
@@ -19,7 +19,7 @@ namespace ConfigurationReader.Clipboard
 
         internal void Initialize(string[] values)
         {
-            _clipboardForm = new ClipboardForm();
+            ClipboardForm = new ClipboardForm();
             if (_toolTipClipboard != null)
                 _toolTipClipboard.Dispose();
             if (AreAnyValues(values))
@@ -30,7 +30,7 @@ namespace ConfigurationReader.Clipboard
                 foreach (var value in values)
                     CreateNewButton(value, builder);
             }
-            _clipboardForm.Show();
+            ClipboardForm.Show();
         }
 
         private bool AreAnyValues(string[] values)
@@ -50,15 +50,15 @@ namespace ConfigurationReader.Clipboard
 
         private void CreateNewButton(string value, DarkButtonBuilder builder)
         {
-            var button = builder.CreateButton(value, 0, _clipboardForm.pnlValues, 1.3f);
-            _clipboardForm.pnlValues.Controls.Add(button);
+            var button = builder.CreateButton(value, 0, ClipboardForm.pnlValues, 1.3f);
+            ClipboardForm.pnlValues.Controls.Add(button);
             _ = new HandlerBuilder_Clipboard(button, OnClickAction);
             _darkButtons.Add(button);
         }
 
         private DarkButtonBuilder CreateButtonBuilder()
         {
-            return new DarkButtonBuilder(_clipboardForm.pnlValues.Width - 10, 35, _toolTipClipboard);
+            return new DarkButtonBuilder(ClipboardForm.pnlValues.Width - 10, 35, _toolTipClipboard);
         }
 
         private void OnClickAction(string text)
@@ -74,7 +74,7 @@ namespace ConfigurationReader.Clipboard
 
         internal bool IsFormActive()
         {
-            return _clipboardForm == null ? false : _clipboardForm.IsActive;
+            return ClipboardForm == null ? false : ClipboardForm.IsActive;
         }
     }
 }

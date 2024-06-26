@@ -7,7 +7,7 @@ namespace ConfigurationReader
 {
     public partial class Form1 : Form
     {
-        private const double MAX_FILE_SIZE_BY_BYTES = 30720;  //30Kb
+        private const double MAX_FILE_SIZE_BY_BYTES = 10000;  //10Kb
 
         private readonly ConfigurationHelper _configurationHelper;
         private readonly NotificationObject _notificationObject;
@@ -234,7 +234,7 @@ namespace ConfigurationReader
             _clipboardManager.Initialize(items);
         }
 
-        private void OnClipboard_Click(object sender, EventArgs e)
+        private void OnAddToClipboard_Click(object sender, EventArgs e)
         {
             var value = tbKeyValue.Text;
             if (string.IsNullOrEmpty(value))
@@ -245,7 +245,8 @@ namespace ConfigurationReader
             int index = _settings.Where(v => v.Key.Contains(Stafi.VALUES_REGION_NAME)).ToDictionary().Count;
             var key = $"{Stafi.VALUES_REGION_NAME}:{Stafi.VALUES_NAME}{index}";
             _settings.Add(key, value);
-            _clipboardManager.AddNewButton(value);
+            if (_clipboardManager.ClipboardForm != null)
+                _clipboardManager.AddNewButton(value);
         }
         #endregion
 
